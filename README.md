@@ -1,8 +1,8 @@
-# 💪 GymApp - Aplicativo de Academia
+# 💪 GymApp 
 
 ## 🧾 Sobre o app
 
-**GymTrack** é um aplicativo de academia voltado para aqueles que desejam acompanhar seus treinos, progresso físico e desempenho ao longo do tempo. O app possibilita a criação e acompanhamento de treinos personalizados, visualização de estatísticas de progresso e gerenciamento do perfil do usuário.
+**GymApp** é um aplicativo de academia voltado para aqueles que desejam acompanhar seus treinos, progresso físico e desempenho ao longo do tempo. O app possibilita a criação e acompanhamento de treinos personalizados, visualização de estatísticas de progresso e gerenciamento do perfil do usuário.
 
 ### ✔️ Funcionalidades básicas (prioritárias)
 
@@ -93,7 +93,7 @@ O app utilizará um banco de dados **NoSQL (Firebase ou similar)** para armazena
 
 # 🚀 Planejamento de Sprints - GymApp
 
-Esta parte do documento detalha o planejamento de desenvolvimento do aplicativo **GymApp** durante o semestre, dividido em sprints semanais. A cada sprint, serão entregues partes específicas da aplicação conforme o escopo definido no projeto.
+Esta parte do documento detalha o planejamento de desenvolvimento do aplicativo **** durante o semestre, dividido em sprints semanais. A cada sprint, serão entregues partes específicas da aplicação conforme o escopo definido no projeto.
 
 ## 📅 Sprint 1: Setup inicial + Autenticação
 
