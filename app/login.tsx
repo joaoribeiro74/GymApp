@@ -3,11 +3,12 @@ import React, { useState } from 'react'
 import Checkbox from 'expo-checkbox';
 import { useRouter } from 'expo-router';
 
-export default function login() {
-  const [password, setPassword] = useState('');
-  const [isChecked, setChecked] = useState(false);
-
+export default function Login() {
   const router = useRouter();
+
+  const [email, setEmail] = useState('joao@example.com');
+  const [password, setPassword] = useState('123456');
+  const [isChecked, setChecked] = useState(false);
 
   return (
     <View className='bg-[#d9d9d9] h-full'>
@@ -29,7 +30,10 @@ export default function login() {
                     shadowOffset : { width: 0, height: 2 },
                     shadowOpacity: 0.25,
                     shadowRadius: 3.84,
-                    elevation: 5}}>
+                    elevation: 5}}
+                    
+                    value={email}
+                    onChangeText={setEmail}>
                 </TextInput>
                 <Text className='text-sm font-bold text-[#323232] mt-8 text-left'>SENHA</Text>
                 <TextInput className='bg-white rounded-[8] px-4 py-4 mt-2 shadow'
@@ -42,7 +46,6 @@ export default function login() {
                     
                     value={password}
                     onChangeText={setPassword}
-                    placeholder=""
                     secureTextEntry={true}
                 />    
                 <TouchableOpacity>

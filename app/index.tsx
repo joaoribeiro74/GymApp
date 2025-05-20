@@ -3,7 +3,7 @@ import { Button, Image, Text, TouchableOpacity, View } from 'react-native'
 import * as NavigationBar from 'expo-navigation-bar';
 import { useRouter } from 'expo-router';
 
-export default function index() {
+export default function Index() {
   useEffect(() => {
   NavigationBar.setBackgroundColorAsync('#d9d9d9');
   }, []);

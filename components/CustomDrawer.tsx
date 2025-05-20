@@ -1,13 +1,13 @@
 import React from 'react';
 import { Image, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
-import { FontAwesome, Ionicons, MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
+import { AntDesign, FontAwesome, Ionicons, MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 type Props = {
     navigation: any;
     state: any;
 };
 export default function CustomDrawerContent({navigation, state}: Props) {
     const userName = "João Vitor";
-    const avatarUri = "https://i.pravatar.cc/150?img=12";
+    const avatarUri = "";
 
     const navigateTo = (screenName: string) => {
         navigation.navigate(screenName);
@@ -30,7 +30,7 @@ export default function CustomDrawerContent({navigation, state}: Props) {
       route: 'progress',
     },
     {
-      icon: <FontAwesome name="line-chart" size={20} color="#323232" />,
+      icon: <AntDesign name="areachart" size={20} color="#323232" />,
       label: 'Atividade',
       route: 'activity',
     },
@@ -40,10 +40,16 @@ export default function CustomDrawerContent({navigation, state}: Props) {
         <View className='flex-1 bg-white justify-between'>
           <View>
             <View className='items-start pt-8 pb-4 px-4'>
-              <Image 
-                source={{uri: avatarUri}}
-                className='w-[60] h-[60] rounded-full'
-              />
+              {avatarUri ? (
+                <Image 
+                  source={{ uri: avatarUri }}
+                  className='w-[60px] h-[60px] rounded-full'
+                />
+              ) : (
+                <View className="w-[60px] h-[60px] rounded-full items-center justify-center">
+                  <FontAwesome name="user-circle-o" size={60} color="#323232" />
+                </View>
+              )}
               <Text className='mt-3 mb-2 text-xl font-bold text-[#323232]'>{userName}</Text>
             </View>
 

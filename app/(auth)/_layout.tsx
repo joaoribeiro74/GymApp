@@ -1,8 +1,10 @@
-import { View, Text } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import React from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { Drawer } from 'expo-router/drawer'
 import CustomDrawerContent from '../../components/CustomDrawer'
+import Logo from '../../assets/logo.png'
+import { Slot } from 'expo-router'
 
 export default function _layout() {
   return (
@@ -13,6 +15,13 @@ export default function _layout() {
             drawerStyle: {
               width: 280,
             },
+            headerRight: () => (
+              <Image
+                source={Logo}
+                style={{ width: 40, height: 40, marginRight: 16 }}
+                resizeMode="contain"
+                /> 
+            ),
           }}
       >
         <Drawer.Screen
