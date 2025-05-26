@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-export default function Activity() {
+export default function HomeActivity() {
   return (
     <View>
-      <Text>activity</Text>
+      <Text>Atividade</Text>
     </View>
   )
 }

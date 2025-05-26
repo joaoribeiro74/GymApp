@@ -36,7 +36,12 @@ export default function CustomDrawerContent({ navigation, state }: Props) {
     {
       icon: <Ionicons name="fitness" size={20} color="#323232" />,
       label: "Treinos",
-      route: "workouts",
+      route: "workouts/home",
+    },
+    {
+      icon: <AntDesign name="pluscircle" size={20} color="#323232" />,
+      label: "Criar Treino",
+      route: "workouts/create",
     },
     {
       icon: (
@@ -47,12 +52,12 @@ export default function CustomDrawerContent({ navigation, state }: Props) {
         />
       ),
       label: "Progresso",
-      route: "progress",
+      route: "progress/home",
     },
     {
       icon: <AntDesign name="areachart" size={20} color="#323232" />,
       label: "Atividade",
-      route: "activity",
+      route: "activity/home",
     },
   ];
 
@@ -104,7 +109,7 @@ export default function CustomDrawerContent({ navigation, state }: Props) {
             className={`flex-row items-center px-4 py-4 ${
               state.routeNames[state.index] === "settings" ? "bg-[#f6f6f6]" : ""
             }`}
-            onPress={() => navigateTo("settings")}
+            onPress={() => navigateTo("settings/home")}
           >
             <Ionicons name="settings-sharp" size={20} color="#323232" />
             <Text className="ml-4 text-base font-bold text-[#323232]">

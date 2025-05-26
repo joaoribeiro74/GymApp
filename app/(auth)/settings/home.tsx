@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-export default function Progress() {
+export default function HomeSettings() {
   return (
     <View>
-      <Text>Progress</Text>
+      <Text>Configurações</Text>
     </View>
   )
 }

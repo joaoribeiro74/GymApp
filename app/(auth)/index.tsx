@@ -11,6 +11,7 @@ import Loading from "../../components/Loading";
 import StyledButton from "../../components/StyledButton";
 import { AntDesign } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { router } from "expo-router";
 
 export default function Index() {
   useNavigationExitOnBack();
@@ -24,7 +25,7 @@ export default function Index() {
   return (
     <SafeAreaView>
       <ScrollView>
-        <View className="p-4">
+        <View className="px-4 pb-4">
           <Text className="text-2xl font-bold text-[#323232]">
             OLÁ{data?.username ? `, ${data.username.toUpperCase()}` : ""}
           </Text>
@@ -43,7 +44,7 @@ export default function Index() {
           <StyledButton
             variant="custom"
             title="CRIAR TREINO"
-            onPress={() => console.log("Avançar")}
+            onPress={() => router.push("/(auth)/workouts/create")}
           >
             <Text className="text-white text-center font-bold">
               CRIAR TREINO

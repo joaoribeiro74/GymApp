@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-export default function workout() {
+export default function HomeProgress() {
   return (
     <View>
-      <Text>workout</Text>
+      <Text>Progresso</Text>
     </View>
   )
 }

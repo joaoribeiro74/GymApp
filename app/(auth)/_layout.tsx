@@ -29,10 +29,35 @@ export default function AuthLayout() {
           }}
         />
 
-        <Drawer.Screen name="workouts" options={{ title: "Treinos" }} />
-        <Drawer.Screen name="progress" options={{ title: "Progresso" }} />
-        <Drawer.Screen name="activity" options={{ title: "Atividade" }} />
-        <Drawer.Screen name="settings" options={{ title: "Configurações" }} />
+        <Drawer.Screen 
+          name="workouts/home" 
+          options={{ 
+            title: "TREINOS" 
+            }} 
+        />
+        <Drawer.Screen
+          name="workouts/create"
+          options={{ 
+            title: "CRIAR TREINO" 
+          }}
+        />
+        <Drawer.Screen 
+          name="progress/home" 
+          options={{ 
+            title: "PROGRESSO" }} 
+        />
+        <Drawer.Screen 
+          name="activity/home" 
+          options={{ title: "ATIVIDADE" 
+
+          }} 
+        />
+        <Drawer.Screen
+          name="settings/home"
+          options={{ 
+            title: "CONFIGURAÇÕES" 
+          }}
+        />
       </Drawer>
     </GestureHandlerRootView>
   );

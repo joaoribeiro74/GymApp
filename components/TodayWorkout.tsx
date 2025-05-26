@@ -35,7 +35,7 @@ export default function TodayWorkout() {
         ))}
       </View>
 
-      <StyledButton variant="custom"  onPress={() => router.push("/(auth)/home")}>
+      <StyledButton variant="custom"  onPress={() => router.push("/(auth)/workouts/nextWorkout")}>
         <Text className="text-white text-center font-bold">VER TREINO</Text>
       </StyledButton>
     </View>

@@ -79,6 +79,7 @@ export default function Login() {
           }}
           value={email}
           onChangeText={setEmail}
+          cursorColor="#323232"
         ></TextInput>
         <Text className="text-sm font-bold text-[#323232] mt-8 text-left">
           SENHA
@@ -95,6 +96,7 @@ export default function Login() {
           value={password}
           onChangeText={setPassword}
           secureTextEntry={true}
+          cursorColor="#323232"
         />
         <TouchableOpacity className="mb-8">
           <Text className="text-xs font-black text-[#323232] mt-2 text-right underline">

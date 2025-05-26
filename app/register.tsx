@@ -83,6 +83,7 @@ export default function Register() {
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
+          cursorColor="#323232"
         />
         <Text className="text-sm font-bold text-[#323232] mt-8 text-left">
           NOME DE USUÁRIO
@@ -98,6 +99,7 @@ export default function Register() {
           }}
           value={username}
           onChangeText={setUsername}
+          cursorColor="#323232"
         />
         <Text className="text-sm font-bold text-[#323232] mt-8 text-left">
           SENHA
@@ -114,6 +116,7 @@ export default function Register() {
           value={password}
           onChangeText={setPassword}
           secureTextEntry={true}
+          cursorColor="#323232"
         />
         <Text className="text-sm font-bold text-[#323232] mt-8 text-left">
           CONFIRME SUA SENHA
@@ -130,6 +133,7 @@ export default function Register() {
           value={confirmPassword}
           onChangeText={setConfirmPassword}
           secureTextEntry={true}
+          cursorColor="#323232"
         />
 
         <StyledButton variant="default" title="REGISTRAR" onPress={handleRegister} />

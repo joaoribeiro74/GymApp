@@ -30,4 +30,12 @@ export const weightStats = [
     weight: 65,
     description: "12/05/25",
   },
+  {
+    weight: 66,
+    description: "19/05/25",
+  },
+  {
+    weight: 64,
+    description: "25/05/25",
+  },
 ];
