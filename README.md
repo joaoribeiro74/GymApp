@@ -4,6 +4,32 @@
 
 **GymApp** é um aplicativo de academia voltado para aqueles que desejam acompanhar seus treinos, progresso físico e desempenho ao longo do tempo. O app possibilita a criação e acompanhamento de treinos personalizados, visualização de estatísticas de progresso e gerenciamento do perfil do usuário.
 
+## ▶️ Como clonar e executar o projeto
+
+Siga os passos abaixo para rodar o projeto na sua máquina com Expo:
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/joaoribeiro74/GymApp.git
+cd GymApp
+```
+
+### 2. Instale as dependências
+
+```bash
+yarn
+```
+
+### 3. Execute o projeto com Expo
+
+Usando Yarn
+```bash
+yarn start
+```
+
+---
+
 ### ✔️ Funcionalidades básicas (prioritárias)
 
 - [x] Tela de Boas-Vindas
@@ -104,8 +130,8 @@ Esta parte do documento detalha o planejamento de desenvolvimento do aplicativo 
 
 ## 📅 Sprint 1: Setup inicial + Autenticação
 
-**Duração:** 2 semanas 
-**Objetivo:** Estruturar o projeto, configurar autenticação, implementar as telas iniciais, criar estrutura de navegação e exibir informações iniciais do usuário.
+**Duração:** 2 semanas
+**Objetivo:** Estruturar o projeto, configurar autenticação e telas iniciais.
 
 ### Tarefas:
 - [x] Criar repositório no GitHub
