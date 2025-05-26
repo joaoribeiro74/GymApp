@@ -12,22 +12,22 @@ export const data = [
 export const weightStats = [
   {
     weight: 50,
-    description: "24/08/24",
+    description: "27/02/25",
   },
   {
     weight: 60,
-    description: "26/08/24",
+    description: "15/03/25",
   },
   {
     weight: 67,
-    description: "08/12/24",
+    description: "19/04/25",
   },
   {
     weight: 62,
-    description: "16/01/25",
+    description: "30/04/25",
   },
   {
     weight: 65,
-    description: "02/02/25",
+    description: "12/05/25",
   },
 ];

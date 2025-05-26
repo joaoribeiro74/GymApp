@@ -3,18 +3,18 @@ import { useEffect } from "react";
 import { BackHandler } from "react-native";
 
 export default function useNavigationExitOnBack() {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
 
-    useEffect(() => {
-        const callback = (e: any) => {
-            if (e.data?.action?.type === "GO_BACK") {
-                e.preventDefault();
-                BackHandler.exitApp();
-            }
-        };
+  useEffect(() => {
+    const callback = (e: any) => {
+      if (e.data?.action?.type === "GO_BACK") {
+        e.preventDefault();
+        BackHandler.exitApp();
+      }
+    };
 
-        navigation.addListener("beforeRemove", callback);
+    navigation.addListener("beforeRemove", callback);
 
-        return () => navigation.removeListener("beforeRemove", callback);
-    }, []);
+    return () => navigation.removeListener("beforeRemove", callback);
+  }, []);
 }

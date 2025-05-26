@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-export default function progress() {
+export default function Progress() {
   return (
     <View>
-      <Text>progress</Text>
+      <Text>Progress</Text>
     </View>
   )
 }
