@@ -32,26 +32,26 @@ yarn start
 
 ### ✔️ Funcionalidades básicas (prioritárias)
 
-- [ ] Tela de Boas-Vindas
-  - [ ] Logo do App
-  - [ ] Mensagem de Boas-Vindas
-  - [ ] Redirecionamento para cadastro
-- [ ] Tela de Cadastro
-  - [ ] Campos de e-mail, nome de usuário e senha
-  - [ ] Botão de Cadastro
-  - [ ] Link para redirecionamento ao login, caso já tenha cadastro
-  - [ ] Validação de dados
-- [ ] Tela de Login
-  - [ ] Campos de e-mail ou nome de usuário e senha
-  - [ ] Links para redirecionamento ao cadastro e trocar senha
-  - [ ] Botão de Login
-  - [ ] Validação + feedback de erro
-- [ ] Tela Inicial
-  - [ ] Saudação personalizada ("Bom dia, João!")
-  - [ ] Resumo do Próximo treino (nome do treino, dia)
-  - [ ] Resumo do progresso (último recorde, peso atual, gráfico miniatura)
-  - [ ] Botão para criar treino
-  - [ ] Menu lateral com ícones para outras telas
+- [x] Tela de Boas-Vindas
+  - [x] Logo do App
+  - [x] Mensagem de Boas-Vindas
+  - [x] Redirecionamento para login
+- [x] Tela de Cadastro
+  - [x] Campos de e-mail, nome de usuário e senha
+  - [x] Botão de Cadastro
+  - [x] Link para redirecionamento ao login, caso já tenha cadastro
+  - [x] Validação de dados
+- [x] Tela de Login
+  - [x] Campos de e-mail ou nome de usuário e senha
+  - [x] Links para redirecionamento ao cadastro e trocar senha
+  - [x] Botão de Login
+  - [x] Validação + feedback de erro
+- [x] Tela Inicial
+  - [x] Saudação personalizada ("Bom dia, João!")
+  - [x] Resumo do Próximo treino (nome do treino, dia)
+  - [x] Resumo do progresso (último recorde, peso atual, gráfico miniatura)
+  - [x] Botão para criar treino
+  - [x] Menu lateral com ícones para outras telas
 - [ ] Tela de Criação de Treinos
   - [ ] Campo para nome do treino
   - [ ] Seletor de categoria (Peito, Costas, Pernas...)
@@ -117,6 +117,13 @@ O app utilizará um banco de dados **NoSQL (Firebase ou similar)** para armazena
 
 ---
 
+## 📹 Demonstração em Vídeo
+
+📽️ [Clique aqui para assistir à demonstração do app](https://drive.google.com/file/d/1DuWxhnXv5z8x5lbBMlWjZui95g8r8aMD/view?usp=sharing)  
+<sub>🔔 O vídeo deve ser público ou "não-listado" no YouTube, com no máximo 1 minuto, demonstrando todas as telas implementadas até o momento.</sub>
+
+---
+
 # 🚀 Planejamento de Sprints - GymApp
 
 Esta parte do documento detalha o planejamento de desenvolvimento do aplicativo **** durante o semestre, dividido em sprints semanais. A cada sprint, serão entregues partes específicas da aplicação conforme o escopo definido no projeto.
@@ -127,30 +134,21 @@ Esta parte do documento detalha o planejamento de desenvolvimento do aplicativo 
 **Objetivo:** Estruturar o projeto, configurar autenticação e telas iniciais.
 
 ### Tarefas:
-- [ ] Criar repositório no GitHub
-- [ ] Criar os protótipos de tela da aplicação no Figma
-- [ ] Criar projeto com Expo + TypeScript
-- [ ] Implementar Tela de Boas-Vindas
-- [ ] Implementar Telas de Login e Cadastro
-- [ ] Configurar Firebase Authentication
-- [ ] Validação de formulários e exibição de mensagens de erro/feedback
-- [ ] Navegação condicional com base na autenticação (usuário logado/não logado)
+- [x] Criar repositório no GitHub
+- [x] Criar os protótipos de tela da aplicação no Figma
+- [x] Criar projeto com Expo + TypeScript
+- [x] Implementar Tela de Boas-Vindas
+- [x] Implementar Telas de Login e Cadastro
+- [x] Configurar Firebase Authentication
+- [x] Validação de formulários e exibição de mensagens de erro/feedback
+- [x] Navegação condicional com base na autenticação (usuário logado/não logado)
+- [x] Criar estrutura de navegação (stack + drawer/vertical menu)
+- [x] Implementar Tela Inicial
+- [x] Estilizar menu vertical com ícones e acesso às telas principais
 
 ---
 
-## 📅 Sprint 2: Tela Inicial + Navegação
-
-**Duração:** 1 semana  
-**Objetivo:** Criar estrutura de navegação e exibir informações iniciais do usuário.
-
-### Tarefas:
-- [ ] Criar estrutura de navegação (stack + drawer/vertical menu)
-- [ ] Implementar Tela Inicial
-- [ ] Estilizar menu vertical com ícones e acesso às telas principais
-
----
-
-## 📅 Sprint 3: Treinos
+## 📅 Sprint 2: Treinos
 
 **Duração:** 1 semana  
 **Objetivo:** Permitir ao usuário criar treinos personalizados e registrar treinos do dia.
@@ -163,7 +161,7 @@ Esta parte do documento detalha o planejamento de desenvolvimento do aplicativo 
 
 ---
 
-## 📅 Sprint 4: Progresso
+## 📅 Sprint 3: Progresso
 
 **Duração:** 1 semana  
 **Objetivo:**  Visualizar estatísticas de evolução e recordes.
@@ -176,7 +174,7 @@ Esta parte do documento detalha o planejamento de desenvolvimento do aplicativo 
 
 ---
 
-## 📅 Sprint 5: Atividade
+## 📅 Sprint 4: Atividade
 
 **Duração:** 1 semana  
 **Objetivo:** Mostrar um resumo da frequência de treinos e atividade geral do usuário.
@@ -188,7 +186,7 @@ Esta parte do documento detalha o planejamento de desenvolvimento do aplicativo 
 
 ---
 
-## 📅 Sprint 6: Perfil + Configurações
+## 📅 Sprint 5: Perfil + Configurações
 
 **Duração:** 1 semana  
 **Objetivo:** Permitir ao usuário editar seu perfil e configurar preferências.
@@ -202,7 +200,7 @@ Esta parte do documento detalha o planejamento de desenvolvimento do aplicativo 
 
 ---
 
-## 📅 Sprint 7: Testes e Refatoração
+## 📅 Sprint 6: Testes e Refatoração
 
 **Duração:** 1 semana  
 **Objetivo:** Garantir estabilidade, performance e visual final.
@@ -231,5 +229,3 @@ Estas sprints representam melhorias que **não fazem parte do escopo mínimo obr
 **Duração:** 2 semanas  
 **Objetivo:** Implementar funcionalidades adicionais
 ...
-
-
