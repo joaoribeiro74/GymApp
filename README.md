@@ -4,32 +4,6 @@
 
 **GymApp** é um aplicativo de academia voltado para aqueles que desejam acompanhar seus treinos, progresso físico e desempenho ao longo do tempo. O app possibilita a criação e acompanhamento de treinos personalizados, visualização de estatísticas de progresso e gerenciamento do perfil do usuário.
 
-## ▶️ Como clonar e executar o projeto
-
-Siga os passos abaixo para rodar o projeto na sua máquina com Expo:
-
-### 1. Clone o repositório
-
-```bash
-git clone https://github.com/joaoribeiro74/GymApp.git
-cd GymApp
-```
-
-### 2. Instale as dependências
-
-```bash
-yarn
-```
-
-### 3. Execute o projeto com Expo
-
-Usando Yarn
-```bash
-yarn start
-```
-
----
-
 ### ✔️ Funcionalidades básicas (prioritárias)
 
 - [x] Tela de Boas-Vindas
@@ -120,7 +94,6 @@ O app utilizará um banco de dados **NoSQL (Firebase ou similar)** para armazena
 ## 📹 Demonstração em Vídeo
 
 📽️ [Clique aqui para assistir à demonstração do app](https://drive.google.com/file/d/1DuWxhnXv5z8x5lbBMlWjZui95g8r8aMD/view?usp=sharing)  
-<sub>🔔 O vídeo deve ser público ou "não-listado" no YouTube, com no máximo 1 minuto, demonstrando todas as telas implementadas até o momento.</sub>
 
 ---
 
@@ -130,8 +103,8 @@ Esta parte do documento detalha o planejamento de desenvolvimento do aplicativo 
 
 ## 📅 Sprint 1: Setup inicial + Autenticação
 
-**Duração:** 2 semanas
-**Objetivo:** Estruturar o projeto, configurar autenticação e telas iniciais.
+**Duração:** 2 semanas 
+**Objetivo:** Estruturar o projeto, configurar autenticação, implementar as telas iniciais, criar estrutura de navegação e exibir informações iniciais do usuário.
 
 ### Tarefas:
 - [x] Criar repositório no GitHub
@@ -229,3 +202,21 @@ Estas sprints representam melhorias que **não fazem parte do escopo mínimo obr
 **Duração:** 2 semanas  
 **Objetivo:** Implementar funcionalidades adicionais
 ...
+
+---
+
+## 🆕 Atualizações desde o último checkpoint
+
+### ✅ Recursos dos módulos anteriores aplicados:
+
+- **NativeWind** utilizado para estilizar todas as telas criadas até o momento.
+- **Drawer e Stack** utilizados para fazer um fluxo de autenticação, de modo que o usuário tenha uma área pública gerenciada por um navegador Stack, e que ao fazer login ele seja redirecionado para uma área com navegação Drawer.
+- **Mocks** utilizado para popular a tela inicial pós-autenticação.
+
+### ♻️ Boas práticas aplicadas:
+
+- **Isolamento de componentes reutilizáveis**: como `StyledButton`, `Loading`, `ProgressWeight`, `CustomToast`. Utilizado em telas de login, registro e na tela inicial.
+- **Nomenclaturas minimalistas e descritivas**: `CustomDrawer`, `login`, `register`.
+- **Parametrização de componentes**: `StyledButton({ onPress, title, variant })`.
+- **Componentes que recebem filhos**: `StyledButton({ children })`. Utilizado na tela inicial para modificar o botão em comparação aos de login e registro.
+- **Uso de mocks**: Utilizado na tela inicial para popular e ajudar no desenvolvimento.
