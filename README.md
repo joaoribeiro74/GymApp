@@ -4,6 +4,40 @@
 
 **GymApp** é um aplicativo de academia voltado para aqueles que desejam acompanhar seus treinos, progresso físico e desempenho ao longo do tempo. O app possibilita a criação e acompanhamento de treinos personalizados, visualização de estatísticas de progresso e gerenciamento do perfil do usuário.
 
+## 🧑‍💻 Como rodar o projeto
+
+### Pré-requisitos
+
+- Node.js instalado
+- Yarn instalado:
+
+### Clonar o repositório
+
+```bash
+git clone https://github.com/seu-usuario/seu-repo.git
+cd seu-repo
+```
+
+### Instalar dependências
+
+```bash
+yarn
+```
+
+### Iniciar o projeto
+
+```bash
+yarn start
+```
+
+### Configurar o Firebase
+
+```bash
+Criar o arquivo firebaseConfig.ts e colocar as credenciais
+```
+
+---
+
 ### ✔️ Funcionalidades básicas (prioritárias)
 
 - [x] Tela de Boas-Vindas
