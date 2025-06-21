@@ -39,3 +39,48 @@ export const weightStats = [
     description: "25/05/25",
   },
 ];
+
+export const exercises = [
+  {
+    id: 1,
+    exercise: "Pulldown",
+    image: require("../assets/exercises/pulldown.jpg"),
+    category: "Costas",
+  },
+  {
+    id: 2,
+    exercise: "Leg Press",
+    image: require("../assets/exercises/pulldown.jpg"),
+    category: "Pernas",
+  },
+  {
+    id: 3,
+    exercise: "Triceps",
+    image: require("../assets/exercises/pulldown.jpg"),
+    category: "Triceps",
+  },
+  {
+    id: 4,
+    exercise: "Supino inclinado com halteres",
+    image: require("../assets/exercises/pulldown.jpg"),
+    category: "Peito",
+  },
+  {
+    id: 5,
+    exercise: "Supino inclinado com halteres",
+    image: require("../assets/exercises/pulldown.jpg"),
+    category: "Peito",
+  },
+  {
+    id: 6,
+    exercise: "Supino inclinado com halteres",
+    image: require("../assets/exercises/pulldown.jpg"),
+    category: "Peito",
+  },
+  {
+    id: 7,
+    exercise: "Supino inclinado com halteres",
+    image: require("../assets/exercises/pulldown.jpg"),
+    category: "Peito",
+  },
+];
