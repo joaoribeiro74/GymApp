@@ -1,12 +1,10 @@
 import {
   View,
   Text,
-  ScrollView,
   FlatList,
   Modal,
   TouchableOpacity,
   TextInput,
-  Pressable,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import {
@@ -16,18 +14,36 @@ import {
 import SearchInput from "../../../components/SearchInput";
 import AddExerciseCard from "../../../components/AddExerciseCard";
 import * as NavigationBar from "expo-navigation-bar";
-import { exercises } from "../../../mocks/data";
 import AddExerciseBar from "../../../components/AddExerciseBar";
 import { Ionicons } from "@expo/vector-icons";
-import DraggableFlatList, {
-  RenderItemParams,
-} from "react-native-draggable-flatlist";
+import Loading from "../../../components/Loading";
+import useCollection from "../../../firebase/hooks/useCollection";
+import Toast from "react-native-toast-message";
+import toastConfig from "../../../components/CustomToast";
+import useAuth from "../../../firebase/hooks/useAuth";
+import { addDoc, collection } from "firebase/firestore";
+import useFirebase from "../../../firebase/hooks/useFirebase";
+import { useNavigation } from "expo-router";
 
+type Exercise = {
+  id: string;
+  exercise: string;
+  category: string;
+};
 export default function create() {
   const [search, setSearch] = useState("");
   const [workoutName, setWorkoutName] = useState("");
-  const [addedExercises, setAddedExercises] = useState<typeof exercises>([]);
+  const [addedExercises, setAddedExercises] = useState<Exercise[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
+
+  const { user } = useAuth();
+  const { db } = useFirebase();
+  const navigation = useNavigation<any>();
+
+  const { data: exercises, loading } = useCollection("exercises", true) as {
+    data: Exercise[];
+    loading: boolean;
+  };
 
   const filteredExercises = exercises.filter(
     (ex) =>
@@ -42,7 +58,7 @@ export default function create() {
 
   const insets = useSafeAreaInsets();
 
-  function toggleExercise(id: number) {
+  function toggleExercise(id: string) {
     const ex = exercises.find((e) => e.id === id);
     if (!ex) return;
 
@@ -60,17 +76,81 @@ export default function create() {
     setAddedExercises([]);
   }
 
+  const handleCreateWorkout = async () => {
+    if (!workoutName.trim()) {
+      Toast.show({
+        type: "customError",
+        text1: "O nome do treino é obrigatório!",
+        position: "top",
+        visibilityTime: 3000,
+        autoHide: true,
+        swipeable: true,
+      });
+      return;
+    }
+
+    if (addedExercises.length === 0) {
+      Toast.show({
+        type: "customError",
+        text1: "Adicione pelo menos um exercício!",
+        position: "top",
+        visibilityTime: 3000,
+        autoHide: true,
+        swipeable: true,
+      });
+      return;
+    }
+
+    try {
+      await addDoc(collection(db!, "users", user?.uid!, "workoutTemplates"), {
+        userId: user?.uid,
+        name: workoutName.trim().toUpperCase(),
+        exercises: addedExercises,
+        createdAt: new Date(),
+      });
+
+      Toast.show({
+        type: "customSuccess",
+        text1: "Treino criado com sucesso!",
+        position: "top",
+        visibilityTime: 3000,
+        autoHide: true,
+        swipeable: true,
+      });
+
+      setTimeout(() => {
+      setModalVisible(false);
+      setWorkoutName("");
+      setAddedExercises([]);
+      navigation.navigate("workouts/home");
+    }, 3000); 
+    } catch (error) {
+      Toast.show({
+        type: "customError",
+        text1: "Erro ao criar treino!",
+        position: "top",
+        visibilityTime: 3000,
+        autoHide: true,
+        swipeable: true,
+      });
+    }
+  };
+
+  if (loading) return <Loading />;
+
   return (
     <SafeAreaView className="flex-1">
-      <View className="flex-1 px-4 pb-8">
+      <View className="flex-1 pb-8">
+        <View className="px-4">
         <Text className="text-md font-bold text-[#323232]">
           BUSCAR EXERCÍCIOS
         </Text>
         <SearchInput value={search} onChangeText={setSearch} />
+        </View>
 
         <FlatList
           data={filteredExercises}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <AddExerciseCard
               name={item.exercise.toUpperCase()}
@@ -81,7 +161,7 @@ export default function create() {
             />
           )}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: insets.bottom + 10 }}
+          contentContainerStyle={{ paddingBottom: insets.bottom + 10, padding: 16 }}
         />
       </View>
       <AddExerciseBar
@@ -93,7 +173,6 @@ export default function create() {
       <Modal
         visible={modalVisible}
         animationType="slide"
-        presentationStyle="fullScreen"
       >
         <SafeAreaView className="flex-1 bg-[#d9d9d9] px-4">
           <View className="flex-row items-center justify-between pt-4">
@@ -108,7 +187,7 @@ export default function create() {
           <View className="pt-8">
             <Text className="font-bold text-[#323232]">NOME DO TREINO</Text>
             <TextInput
-              className="bg-white rounded-[8] px-4 py-4 mt-2 shadow font-bold"
+              className="bg-white rounded-[8] py-4 mt-2 shadow font-bold px-4"
               style={{
                 shadowColor: "#000",
                 shadowOffset: { width: 0, height: 2 },
@@ -122,15 +201,13 @@ export default function create() {
             ></TextInput>
           </View>
 
-          <View className="pt-12">
+          <View className="flex-1 pt-12">
             <Text className="font-bold text-[#323232] pb-2">
-              ARRASTE PARA DEFINIR A ORDEM
+              ORDEM DOS EXERCÍCIOS
             </Text>
-            <DraggableFlatList
+            <FlatList
               data={addedExercises}
-              keyExtractor={(item) => item.id.toString()}
-              onDragEnd={({ data }) => setAddedExercises(data)}
-              activationDistance={0} // Ativa arrasto quase imediato
+              keyExtractor={(item) => item.id}
               renderItem={({ item }) => (
                 <AddExerciseCard
                   name={item.exercise.toUpperCase()}
@@ -144,16 +221,20 @@ export default function create() {
                 />
               )}
               showsVerticalScrollIndicator={false}
+              contentContainerStyle={{ paddingBottom: insets.bottom + 10 }}
             />
           </View>
-          <AddExerciseBar
-            count={addedExercises.length}
-            mode="create"
-            onPress={() => {
-              console.log("CRIAR TREINO:", workoutName, addedExercises);
-            }}
-          />
+          <View className="bottom-0 left-0 right-0 absolute">
+            <AddExerciseBar
+              count={addedExercises.length}
+              mode="create"
+              onPress={() => {
+                handleCreateWorkout();
+              }}
+            />
+          </View>
         </SafeAreaView>
+        <Toast config={toastConfig} />
       </Modal>
     </SafeAreaView>
   );

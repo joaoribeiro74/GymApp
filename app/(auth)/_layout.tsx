@@ -19,7 +19,7 @@ export default function AuthLayout() {
               style={{ width: 40, height: 40, marginRight: 16 }}
               resizeMode="contain"
             />
-          ),
+          )
         }}
       >
         <Drawer.Screen

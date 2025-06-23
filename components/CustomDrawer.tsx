@@ -14,11 +14,15 @@ import {
   SimpleLineIcons,
 } from "@expo/vector-icons";
 import useAuth from "../firebase/hooks/useAuth";
+import useDocument from "../firebase/hooks/useDocument";
+import User from "../types/User";
 type Props = {
   navigation: any;
   state: any;
 };
 export default function CustomDrawerContent({ navigation, state }: Props) {
+  const { user } = useAuth();
+  const { data } = useDocument<User>("users", user?.uid ?? "");
   const userName = "João Vitor";
   const avatarUri = "";
   const { logout } = useAuth();
@@ -76,7 +80,7 @@ export default function CustomDrawerContent({ navigation, state }: Props) {
             </View>
           )}
           <Text className="mt-3 mb-2 text-xl font-bold text-[#323232]">
-            {userName}
+            {data?.username.toUpperCase()}
           </Text>
         </View>
 
