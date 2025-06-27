@@ -1,29 +1,22 @@
-import {
-  View,
-  Text,
-  FlatList,
-  Modal,
-  TouchableOpacity,
-  TextInput,
-} from "react-native";
+import { View, Text, Modal, TouchableOpacity } from "react-native";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import SearchInput from "../../../components/SearchInput";
-import AddExerciseCard from "../../../components/AddExerciseCard";
-import * as NavigationBar from "expo-navigation-bar";
-import AddExerciseBar from "../../../components/AddExerciseBar";
-import { Ionicons } from "@expo/vector-icons";
-import Loading from "../../../components/Loading";
-import useCollection from "../../../firebase/hooks/useCollection";
+import { FlatList, TextInput } from "react-native-gesture-handler";
+import SearchInput from "../../../../components/SearchInput";
+import AddExerciseCard from "../../../../components/AddExerciseCard";
+import useCollection from "../../../../firebase/hooks/useCollection";
+import useUserWorkouts from "../../../../hooks/useUserWorkouts";
+import { useLocalSearchParams, useNavigation } from "expo-router";
+import AddExerciseBar from "../../../../components/AddExerciseBar";
 import Toast from "react-native-toast-message";
-import toastConfig from "../../../components/CustomToast";
-import useAuth from "../../../firebase/hooks/useAuth";
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
-import useFirebase from "../../../firebase/hooks/useFirebase";
-import { useNavigation } from "expo-router";
+import toastConfig from "../../../../components/CustomToast";
+import { Ionicons } from "@expo/vector-icons";
+import { doc, updateDoc } from "firebase/firestore";
+import useAuth from "../../../../firebase/hooks/useAuth";
+import useFirebase from "../../../../firebase/hooks/useFirebase";
 
 type Exercise = {
   id: string;
@@ -31,21 +24,13 @@ type Exercise = {
   category: string;
 };
 
-const weekDays: Record<string, string> = {
-  DOM: "DOMINGO",
-  SEG: "SEGUNDA-FEIRA",
-  TER: "TERÇA-FEIRA",
-  QUA: "QUARTA-FEIRA",
-  QUI: "QUINTA-FEIRA",
-  SEX: "SEXTA-FEIRA",
-  SAB: "SÁBADO",
-};
-export default function create() {
+export default function edit() {
   const [search, setSearch] = useState("");
-  const [workoutName, setWorkoutName] = useState("");
   const [addedExercises, setAddedExercises] = useState<Exercise[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedDay, setSelectedDay] = useState<string[]>([]);
+  const [workoutName, setWorkoutName] = useState("");
+  const { workouts } = useUserWorkouts();
+  const { id } = useLocalSearchParams();
   const [saving, setSaving] = useState(false);
 
   const { user } = useAuth();
@@ -53,24 +38,44 @@ export default function create() {
   const navigation = useNavigation<any>();
   const insets = useSafeAreaInsets();
 
+  const workout = useMemo(
+    () => workouts.find((w) => w.id === id),
+    [workouts, id]
+  );
+
+  useEffect(() => {
+    if (workout) {
+      setAddedExercises(workout.exercises);
+      setWorkoutName(workout.name);
+    }
+  }, [workout]);
+
   const { data: exercises, loading } = useCollection("exercises", true) as {
     data: Exercise[];
     loading: boolean;
   };
 
-  useEffect(() => {
-    NavigationBar.setBackgroundColorAsync("#ffffff");
-    NavigationBar.setButtonStyleAsync("dark");
-  }, []);
+  const clearExercises = useCallback(() => setAddedExercises([]), []);
 
   const filteredExercises = useMemo(() => {
     const lowerSearch = search.toLowerCase();
-    return exercises.filter(
+
+    const filtered = exercises.filter(
       (ex) =>
         ex.exercise.toLowerCase().includes(lowerSearch) ||
         ex.category.toLowerCase().includes(lowerSearch)
     );
-  }, [exercises, search]);
+
+    const sorted = filtered.sort((a, b) => {
+      const aAdded = addedExercises.some((ex) => ex.id === a.id);
+      const bAdded = addedExercises.some((ex) => ex.id === b.id);
+      if (aAdded === bAdded) return 0;
+      return aAdded ? -1 : 1;
+    });
+
+    return sorted;
+  }, [exercises, search, addedExercises]);
+
   const toggleExercise = useCallback(
     (id: string) => {
       setAddedExercises((prev) => {
@@ -84,35 +89,11 @@ export default function create() {
     [exercises]
   );
 
-  const toggleDaySelection = useCallback((day: string) => {
-  setSelectedDay((prev) => {
-    if (prev.includes(day)) {
-      return [];
-    } else {
-      return [day];
-    }
-  });
-}, []);
-
-  const clearExercises = useCallback(() => setAddedExercises([]), []);
-
-  const handleCreateWorkout = useCallback(async () => {
+  const handleEditWorkout = useCallback(async () => {
     if (!workoutName.trim()) {
       Toast.show({
         type: "customError",
         text1: "O nome do treino é obrigatório!",
-        position: "top",
-        visibilityTime: 3000,
-        autoHide: true,
-        swipeable: true,
-      });
-      return;
-    }
-
-    if (selectedDay.length === 0) {
-      Toast.show({
-        type: "customError",
-        text1: "Escolha um dia da semana!",
         position: "top",
         visibilityTime: 3000,
         autoHide: true,
@@ -135,44 +116,29 @@ export default function create() {
 
     try {
       setSaving(true);
-      const workoutTemplatesRef = collection(db!, "users", user?.uid!, "workoutTemplates");
-      const q = query(workoutTemplatesRef, where("userId", "==", user?.uid));
-      const querySnapshot = await getDocs(q);
 
-      const existingDays = querySnapshot.docs.reduce<string[]>((acc, doc) => {
-        const data = doc.data();
-        if (Array.isArray(data.days)) {
-          acc.push(...data.days);
-        }
-        return acc;
-      }, []);
+      const workoutId = Array.isArray(id) ? id[0] : id;
 
-      const selectedDaysFull = selectedDay.map((sigla) => weekDays[sigla]);
-
-      const hasConflict = selectedDaysFull.some((day) => existingDays.includes(day));
-
-      if (hasConflict) {
-        Toast.show({
-          type: "customError",
-          text1: "Já existe um treino para esse dia!",
-          position: "top",
-          visibilityTime: 3000,
-          autoHide: true,
-          swipeable: true,
-        });
-        setSaving(false);
-        return;
+      if (!workoutId) {
+        throw new Error("ID do treino não encontrado.");
       }
-      await addDoc(workoutTemplatesRef, {
-        userId: user?.uid,
+
+      const workoutDocRef = doc(
+        db!,
+        "users",
+        user?.uid!,
+        "workoutTemplates",
+        workoutId
+      );
+
+      await updateDoc(workoutDocRef, {
         name: workoutName.trim().toUpperCase(),
         exercises: addedExercises,
-        day: selectedDaysFull,
       });
 
       Toast.show({
         type: "customSuccess",
-        text1: "Treino criado com sucesso!",
+        text1: "Treino atualizado com sucesso!",
         position: "top",
         visibilityTime: 3000,
         autoHide: true,
@@ -181,25 +147,21 @@ export default function create() {
 
       setTimeout(() => {
         setModalVisible(false);
-        setWorkoutName("");
-        setAddedExercises([]);
-        setSelectedDay([]);
         setSaving(false);
         navigation.navigate("workouts/home");
       }, 3000);
     } catch (error) {
       Toast.show({
         type: "customError",
-        text1: "Erro ao criar treino!",
+        text1: "Erro ao atualizar treino!",
         position: "top",
         visibilityTime: 3000,
         autoHide: true,
         swipeable: true,
       });
+      setSaving(false);
     }
-  }, [workoutName, selectedDay, addedExercises, db, user, navigation]);
-
-  if (loading) return <Loading />;
+  }, [workoutName, addedExercises, db, user, navigation, id]);
 
   return (
     <SafeAreaView className="flex-1">
@@ -235,20 +197,21 @@ export default function create() {
         onPress={() => setModalVisible(true)}
         mode="view"
       />
-
       <Modal visible={modalVisible} animationType="slide">
         <SafeAreaView className="flex-1 bg-[#d9d9d9] px-4">
           <View className="flex-row items-center justify-between pt-4">
             <TouchableOpacity onPress={() => setModalVisible(false)}>
               <Ionicons name="chevron-down" size={30} color="#323232" />
             </TouchableOpacity>
-            <Text className="font-black text-[#323232]">EXERCÍCIOS</Text>
+            <Text className="font-black text-[#323232]">EDITAR EXERCÍCIOS</Text>
             <TouchableOpacity onPress={clearExercises}>
               <Text className="font-bold text-[#E10000] text-sm">Limpar</Text>
             </TouchableOpacity>
           </View>
-          <View className="pt-8 pb-8">
-            <Text className="font-bold text-[#323232]">NOME DO TREINO</Text>
+          <View className="pt-8">
+            <Text className="font-bold text-[#323232]">
+              EDITAR NOME DO TREINO
+            </Text>
             <TextInput
               className="bg-white rounded-[8] py-4 mt-2 shadow font-bold px-4"
               style={{
@@ -262,37 +225,6 @@ export default function create() {
               onChangeText={setWorkoutName}
               cursorColor="#323232"
             ></TextInput>
-          </View>
-          <View className="pt-6">
-            <Text className="font-bold text-[#323232] pb-2">DIA DA SEMANA</Text>
-            <View className="flex-row flex-wrap justify-between">
-              {Object.entries(weekDays).map(([sigla]) => (
-                <TouchableOpacity
-                  key={sigla}
-                  onPress={() => toggleDaySelection(sigla)}
-                  style={{
-                    shadowColor: "#000",
-                    shadowOffset: { width: 0, height: 2 },
-                    shadowOpacity: 0.25,
-                    shadowRadius: 3.84,
-                    elevation: 5,
-                  }}
-                  className={`shadow rounded-[8] p-2 ${
-                    selectedDay.includes(sigla) ? "bg-[#323232]" : "bg-white"
-                  }`}
-                >
-                  <Text
-                    className={`font-bold ${
-                      selectedDay.includes(sigla)
-                        ? "text-white"
-                        : "text-[#323232]"
-                    }`}
-                  >
-                    {sigla}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
           </View>
 
           <View className="flex-1 pt-12">
@@ -321,9 +253,9 @@ export default function create() {
           <View className="bottom-0 left-0 right-0 absolute">
             <AddExerciseBar
               count={addedExercises.length}
-              mode="create"
+              mode="edit"
               onPress={() => {
-                handleCreateWorkout();
+                handleEditWorkout();
               }}
             />
           </View>

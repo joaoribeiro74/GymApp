@@ -5,7 +5,7 @@ import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 export default function SearchInput({ value, onChangeText }: { value: string; onChangeText: (text: string) => void }) {
   return (
     <View
-      className="bg-white rounded-[50] px-2 py-2 mt-3 flex-row items-center shadow"
+      className="bg-white rounded-[50] px-2 py-2 mt-3 flex-row items-center shadow mb-8"
       style={{
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
