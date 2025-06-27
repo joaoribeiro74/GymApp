@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Alert,
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
 import {
   AntDesign,
   FontAwesome,
@@ -23,7 +17,6 @@ type Props = {
 export default function CustomDrawerContent({ navigation, state }: Props) {
   const { user } = useAuth();
   const { data } = useDocument<User>("users", user?.uid ?? "");
-  const userName = "João Vitor";
   const avatarUri = "";
   const { logout } = useAuth();
 

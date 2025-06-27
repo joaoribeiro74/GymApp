@@ -8,7 +8,9 @@ type ExerciseState = {
 };
 
 export function useExerciseStates(workout: Workout) {
-  const [exerciseStates, setExerciseStates] = useState<Record<string, ExerciseState>>({});
+  const [exerciseStates, setExerciseStates] = useState<
+    Record<string, ExerciseState>
+  >({});
 
   useEffect(() => {
     const initialStates: Record<string, ExerciseState> = {};

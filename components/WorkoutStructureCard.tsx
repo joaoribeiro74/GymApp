@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { Workout } from "../hooks/useUserWorkouts";
 import { useDeleteWorkout } from "../hooks/useDeleteWorkout";
-import { useNavigation, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 
 type Props = {
   workout: Workout;

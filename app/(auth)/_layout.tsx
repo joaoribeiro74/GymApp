@@ -66,6 +66,12 @@ export default function AuthLayout() {
             title: "EDITAR TREINO",
           }}
         />
+        <Drawer.Screen
+          name="progress/allRecords"
+          options={{
+            title: "TODOS OS RECORDES",
+          }}
+        />
       </Drawer>
     </GestureHandlerRootView>
   );

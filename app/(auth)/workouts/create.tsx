@@ -14,7 +14,7 @@ import {
 import SearchInput from "../../../components/SearchInput";
 import AddExerciseCard from "../../../components/AddExerciseCard";
 import * as NavigationBar from "expo-navigation-bar";
-import AddExerciseBar from "../../../components/AddExerciseBar";
+import AddExerciseBar from "../../../components/ExerciseBar";
 import { Ionicons } from "@expo/vector-icons";
 import Loading from "../../../components/Loading";
 import useCollection from "../../../firebase/hooks/useCollection";
@@ -85,14 +85,14 @@ export default function create() {
   );
 
   const toggleDaySelection = useCallback((day: string) => {
-  setSelectedDay((prev) => {
-    if (prev.includes(day)) {
-      return [];
-    } else {
-      return [day];
-    }
-  });
-}, []);
+    setSelectedDay((prev) => {
+      if (prev.includes(day)) {
+        return [];
+      } else {
+        return [day];
+      }
+    });
+  }, []);
 
   const clearExercises = useCallback(() => setAddedExercises([]), []);
 
@@ -135,7 +135,12 @@ export default function create() {
 
     try {
       setSaving(true);
-      const workoutTemplatesRef = collection(db!, "users", user?.uid!, "workoutTemplates");
+      const workoutTemplatesRef = collection(
+        db!,
+        "users",
+        user?.uid!,
+        "workoutTemplates"
+      );
       const q = query(workoutTemplatesRef, where("userId", "==", user?.uid));
       const querySnapshot = await getDocs(q);
 
@@ -149,7 +154,9 @@ export default function create() {
 
       const selectedDaysFull = selectedDay.map((sigla) => weekDays[sigla]);
 
-      const hasConflict = selectedDaysFull.some((day) => existingDays.includes(day));
+      const hasConflict = selectedDaysFull.some((day) =>
+        existingDays.includes(day)
+      );
 
       if (hasConflict) {
         Toast.show({
@@ -228,6 +235,11 @@ export default function create() {
             paddingBottom: insets.bottom + 10,
             padding: 16,
           }}
+          ListEmptyComponent={
+            <Text className="text-center text-md text-[#323232] font-bold mt-4">
+              EXERCÍCIO NÃO ENCONTRADO.
+            </Text>
+          }
         />
       </View>
       <AddExerciseBar
