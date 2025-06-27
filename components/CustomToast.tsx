@@ -78,6 +78,13 @@ const toastConfig = {
         marginLeft: 6,
         padding: 0,
       }}
+      text2Style={{
+        color: "#fff",
+        fontSize: 10,
+        fontWeight: "bold",
+        marginLeft: 6,
+        padding: 0,
+      }}
     />
   ),
 

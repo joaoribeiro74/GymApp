@@ -9,7 +9,14 @@ import {
 } from "firebase/auth";
 
 import useFirebase from "./useFirebase";
-import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 
 /**
  * Firebase authentication hook.
@@ -20,18 +27,25 @@ import { collection, doc, getDocs, query, setDoc, where } from "firebase/firesto
  * Validação de senha personalizada.
  */
 function isPasswordValid(password: string): string | null {
-  if (password.length < 8)
-    return "A senha deve ter mais de 8 caracteres.";
-  if (!/[a-z]/.test(password))
-    return "A senha deve conter ao menos uma letra minúscula.";
-  if (!/[0-9]/.test(password))
-    return "A senha deve conter ao menos um número.";
+  if (password.length < 8) return "A senha deve ter mais de 8 caracteres.";
+  if (!/[A-Z]/.test(password))
+    return "A senha deve conter ao menos uma letra maiúscula.";
+  if (!/[0-9]/.test(password)) return "A senha deve conter ao menos um número.";
   if (!/[^a-zA-Z0-9]/.test(password))
     return "A senha deve conter ao menos um caractere especial.";
 
   return null;
 }
 
+function validateUsername(username: string): string | null {
+  const trimmed = username.trim();
+
+  if (trimmed.length < 3) {
+    return "O nome de usuário deve ter pelo menos 3 caracteres.";
+  }
+
+  return null;
+}
 /**
  * Mapeamento de mensagens de erro do Firebase Auth para português.
  */
@@ -43,7 +57,8 @@ function translateAuthError(code: string): string {
     "auth/user-not-found": "Usuário não encontrado.",
     "auth/wrong-password": "Senha incorreta.",
     "auth/too-many-requests": "Muitas tentativas. Tente novamente mais tarde.",
-    "auth/network-request-failed": "Problema de conexão. Verifique sua internet.",
+    "auth/network-request-failed":
+      "Problema de conexão. Verifique sua internet.",
     "auth/invalid-credential": "E-mail ou senha incorretos.",
   };
 
@@ -86,10 +101,16 @@ export default function useAuth() {
   };
 
   const isUsernameTaken = async (username: string): Promise<boolean> => {
+    const trimmed = username.toLowerCase().trim();
+
+    if (trimmed.length < 3) {
+      throw new Error("O nome de usuário deve ter pelo menos 3 caracteres.");
+    }
+
     if (!db) throw new Error("DB not initialized");
 
     const usersRef = collection(db, "users");
-    const q = query(usersRef, where("username", "==", username.toLowerCase().trim()));
+    const q = query(usersRef, where("username", "==", trimmed));
     const snapshot = await getDocs(q);
 
     return !snapshot.empty;
@@ -119,7 +140,8 @@ export default function useAuth() {
     if (passwordError) throw new Error(passwordError);
 
     const alreadyExists = await isUsernameTaken(cleanedUsername);
-    if (alreadyExists) throw new Error(`O nome de usuário "${cleanedUsername}" já está em uso.`);
+    if (alreadyExists)
+      throw new Error(`O nome de usuário "${cleanedUsername}" já está em uso.`);
 
     try {
       const userCredential = await createUserWithEmailAndPassword(

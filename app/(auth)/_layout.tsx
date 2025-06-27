@@ -19,7 +19,7 @@ export default function AuthLayout() {
               style={{ width: 40, height: 40, marginRight: 16 }}
               resizeMode="contain"
             />
-          )
+          ),
         }}
       >
         <Drawer.Screen
@@ -29,33 +29,41 @@ export default function AuthLayout() {
           }}
         />
 
-        <Drawer.Screen 
-          name="workouts/home" 
-          options={{ 
-            title: "TREINOS" 
-            }} 
+        <Drawer.Screen
+          name="workouts/home"
+          options={{
+            title: "TREINOS",
+          }}
         />
         <Drawer.Screen
           name="workouts/create"
-          options={{ 
-            title: "CRIAR TREINO" 
+          options={{
+            title: "CRIAR TREINO",
           }}
         />
-        <Drawer.Screen 
-          name="progress/home" 
-          options={{ 
-            title: "PROGRESSO" }} 
+        <Drawer.Screen
+          name="progress/home"
+          options={{
+            title: "PROGRESSO",
+          }}
         />
-        <Drawer.Screen 
-          name="activity/home" 
-          options={{ title: "ATIVIDADE" 
-
-          }} 
-        />
+        <Drawer.Screen name="activity/home" options={{ title: "ATIVIDADE" }} />
         <Drawer.Screen
           name="settings/home"
-          options={{ 
-            title: "CONFIGURAÇÕES" 
+          options={{
+            title: "CONFIGURAÇÕES",
+          }}
+        />
+        <Drawer.Screen
+          name="workouts/nextWorkout"
+          options={{
+            title: "PRÓXIMO TREINO",
+          }}
+        />
+        <Drawer.Screen
+          name="workouts/[id]/edit"
+          options={{
+            title: "EDITAR TREINO",
           }}
         />
       </Drawer>

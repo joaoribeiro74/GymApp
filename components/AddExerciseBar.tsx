@@ -5,7 +5,7 @@ import { FontAwesome6 } from "@expo/vector-icons";
 type AddExerciseBarProps = {
   count: number;
   onPress?: () => void;
-  mode?: "view" | "create";
+  mode?: "view" | "create" | "edit";
 };
 export default function AddExerciseBar({ count, onPress, mode = "view" }: AddExerciseBarProps) {
   return (
@@ -20,16 +20,24 @@ export default function AddExerciseBar({ count, onPress, mode = "view" }: AddExe
         <Text className="text-sm font-black text-[#323232]">{count}</Text>
       </View>
       <View className="ml-auto">
-        {mode === "view" ? (
+        {mode === "view" && (
           <TouchableOpacity onPress={onPress} className="bg-[#323232] items-center py-3 px-6 rounded-[8]">
           <Text className="text-[10px] font-bold text-white justify-center">
             VER EXERCÍCIOS
           </Text>
         </TouchableOpacity>
-        ) : (
+        )} 
+        {mode === "create" && (
           <TouchableOpacity onPress={onPress} className="bg-[#323232] items-center py-3 px-12 rounded-[8]">
           <Text className="text-[10px] font-bold text-white justify-center">
             CRIAR
+          </Text>
+        </TouchableOpacity>
+        )}
+        {mode === "edit" && (
+          <TouchableOpacity onPress={onPress} className="bg-[#323232] items-center py-3 px-12 rounded-[8]">
+          <Text className="text-[10px] font-bold text-white justify-center">
+            EDITAR
           </Text>
         </TouchableOpacity>
         )}
