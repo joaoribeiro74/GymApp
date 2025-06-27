@@ -26,7 +26,7 @@ const WorkoutLogExerciseSchema = z.object({
   exercise: z.string(),
   series: z.number(),
   reps: z.array(z.string()),
-  weight: z.array(z.string()),
+  weights: z.array(z.string()),
 });
 
 const WorkoutLogSchema = z.object({
@@ -110,8 +110,8 @@ export default function useUserWorkouts() {
                   ? ex.reps.map((r: string) => r.toString())
                   : [],
 
-                weight: Array.isArray(ex.weight)
-                  ? ex.weight.map((w: string) => w.toString())
+                weights: Array.isArray(ex.weights)
+                  ? ex.weights.map((w: string) => w.toString())
                   : [],
               }))
             : [],

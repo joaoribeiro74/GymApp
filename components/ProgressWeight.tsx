@@ -1,4 +1,4 @@
-import React, { use, useEffect } from "react";
+import React from "react";
 import { View, Text, ScrollView } from "react-native";
 import { BarChart } from "react-native-gifted-charts";
 import { weightStats } from "../mocks/data";
@@ -31,8 +31,9 @@ export default function ProgressWeight() {
       day: "numeric",
     });
 
-  const dateRange = `${formatDate(startDate)} - ${formatDate(currentDate)}`.toUpperCase();
-
+  const dateRange = `${formatDate(startDate)} - ${formatDate(
+    currentDate
+  )}`.toUpperCase();
 
   return (
     <View
@@ -45,8 +46,12 @@ export default function ProgressWeight() {
         elevation: 5,
       }}
     >
-      <Text className="text-left font-bold text-[#7B7B7B] text-sm mb-1">{dateRange}</Text>
-      <Text className="text-left font-bold text-[#323232] text-lg mb-4">PESO</Text>
+      <Text className="text-left font-bold text-[#7B7B7B] text-sm mb-1">
+        {dateRange}
+      </Text>
+      <Text className="text-left font-bold text-[#323232] text-lg mb-4">
+        PESO CORPORAL
+      </Text>
 
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <BarChart

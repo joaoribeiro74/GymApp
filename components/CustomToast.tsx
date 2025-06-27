@@ -1,6 +1,5 @@
-import { View, Text } from "react-native";
 import React from "react";
-import Toast, { BaseToast, ErrorToast } from "react-native-toast-message";
+import { BaseToast, ErrorToast } from "react-native-toast-message";
 import { Ionicons } from "@expo/vector-icons";
 
 const toastConfig = {

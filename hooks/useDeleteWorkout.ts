@@ -19,7 +19,9 @@ export function useDeleteWorkout() {
           if (loading || !user || !db) return;
           setLoading(true);
           try {
-            await deleteDoc(doc(db, "users", user.uid, "workoutTemplates", workoutId));
+            await deleteDoc(
+              doc(db, "users", user.uid, "workoutTemplates", workoutId)
+            );
             Toast.show({
               type: "customSuccess",
               text1: "Treino excluído com sucesso!",

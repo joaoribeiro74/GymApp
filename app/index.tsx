@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Image, Text, View } from "react-native";
 import * as NavigationBar from "expo-navigation-bar";
-import {  useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import StyledButton from "../components/StyledButton";
 import useAuth from "../firebase/hooks/useAuth";
 import AsyncStorage from "@react-native-async-storage/async-storage";

@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Alert } from "react-native";
 import Toast from "react-native-toast-message";
-import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import useFirebase from "../firebase/hooks/useFirebase";
 import useAuth from "../firebase/hooks/useAuth";
 import { Workout } from "./useUserWorkouts";
@@ -67,13 +66,13 @@ export function useSaveWorkout(
       }
 
       const dayMap: Record<string, number> = {
-        "DOMINGO": 0,
+        DOMINGO: 0,
         "SEGUNDA-FEIRA": 1,
         "TERÇA-FEIRA": 2,
         "QUARTA-FEIRA": 3,
         "QUINTA-FEIRA": 4,
         "SEXTA-FEIRA": 5,
-        "SÁBADO": 6,
+        SÁBADO: 6,
       };
 
       const workoutDayIndex = dayMap[workout.day.toUpperCase()];

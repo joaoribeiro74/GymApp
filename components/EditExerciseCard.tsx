@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Alert } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { TextInput } from "react-native-gesture-handler";
@@ -11,11 +11,27 @@ type Props = {
   workout: Workout;
   defaultExpanded?: boolean;
 };
-export default function EditExerciseCard({ workout, defaultExpanded = false }: Props) {
+export default function EditExerciseCard({
+  workout,
+  defaultExpanded = false,
+}: Props) {
   const [expanded, setExpanded] = useState(defaultExpanded);
-  const { exerciseStates, handleSeriesChange, handleRepsChange, handleWeightChange, setExerciseStates } = useExerciseStates(workout);
+  const {
+    exerciseStates,
+    handleSeriesChange,
+    handleRepsChange,
+    handleWeightChange,
+    setExerciseStates,
+  } = useExerciseStates(workout);
   const [generalNote, setGeneralNote] = useState(workout.notes || "");
-  const { handleSave, loading } = useSaveWorkout(workout, exerciseStates, setExerciseStates, generalNote, setGeneralNote, setExpanded);
+  const { handleSave, loading } = useSaveWorkout(
+    workout,
+    exerciseStates,
+    setExerciseStates,
+    generalNote,
+    setGeneralNote,
+    setExpanded
+  );
   const { handleDeleteWorkout } = useDeleteWorkout();
 
   return (
@@ -46,7 +62,9 @@ export default function EditExerciseCard({ workout, defaultExpanded = false }: P
               {workout.name}
             </Text>
 
-            <Text className="text-md font-bold text-[#323232]">{workout.day}</Text>
+            <Text className="text-md font-bold text-[#323232]">
+              {workout.day}
+            </Text>
             {!expanded && (
               <Text className="text-sm font-bold text-[#323232]">
                 {workout.exercises.length} EXERCÍCIOS
@@ -55,7 +73,10 @@ export default function EditExerciseCard({ workout, defaultExpanded = false }: P
           </View>
         </View>
         <View className="justify-end">
-          <TouchableOpacity onPress={() => handleDeleteWorkout(workout.id)} className="ml-4">
+          <TouchableOpacity
+            onPress={() => handleDeleteWorkout(workout.id)}
+            className="ml-4"
+          >
             <Ionicons name="trash" size={28} color="red" />
           </TouchableOpacity>
         </View>

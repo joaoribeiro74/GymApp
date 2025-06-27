@@ -10,7 +10,7 @@ import AddExerciseCard from "../../../../components/AddExerciseCard";
 import useCollection from "../../../../firebase/hooks/useCollection";
 import useUserWorkouts from "../../../../hooks/useUserWorkouts";
 import { useLocalSearchParams, useNavigation } from "expo-router";
-import AddExerciseBar from "../../../../components/AddExerciseBar";
+import AddExerciseBar from "../../../../components/ExerciseBar";
 import Toast from "react-native-toast-message";
 import toastConfig from "../../../../components/CustomToast";
 import { Ionicons } from "@expo/vector-icons";
@@ -190,6 +190,11 @@ export default function edit() {
             paddingBottom: insets.bottom + 10,
             padding: 16,
           }}
+          ListEmptyComponent={
+            <Text className="text-center text-md text-[#323232] font-bold mt-4">
+              EXERCÍCIO NÃO ENCONTRADO.
+            </Text>
+          }
         />
       </View>
       <AddExerciseBar

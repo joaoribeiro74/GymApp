@@ -1,6 +1,5 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text } from "react-native";
 import React from "react";
-import { data } from "../mocks/data";
 import { FontAwesome } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import StyledButton from "./StyledButton";
@@ -10,7 +9,7 @@ import Loading from "./Loading";
 
 export default function TodayWorkout() {
   const router = useRouter();
-  const { workouts, workoutLogs,loading } = useUserWorkouts();
+  const { workouts, workoutLogs, loading } = useUserWorkouts();
 
   const nextWorkout = useNextWorkout(workouts, workoutLogs);
 

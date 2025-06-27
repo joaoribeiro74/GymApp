@@ -4,6 +4,7 @@
 
 **GymApp** é um aplicativo de academia voltado para aqueles que desejam acompanhar seus treinos, progresso físico e desempenho ao longo do tempo. O app possibilita a criação e acompanhamento de treinos personalizados, visualização de estatísticas de progresso e gerenciamento do perfil do usuário.
 
+
 ## 🧑‍💻 Como rodar o projeto
 
 ### Pré-requisitos
@@ -38,6 +39,7 @@ Criar o arquivo firebaseConfig.ts e colocar as credenciais
 
 ---
 
+
 ### ✔️ Funcionalidades básicas (prioritárias)
 
 - [x] Tela de Boas-Vindas
@@ -60,20 +62,20 @@ Criar o arquivo firebaseConfig.ts e colocar as credenciais
   - [x] Resumo do progresso (último recorde, peso atual, gráfico miniatura)
   - [x] Botão para criar treino
   - [x] Menu lateral com ícones para outras telas
-- [ ] Tela de Criação de Treinos
-  - [ ] Campo para nome do treino
-  - [ ] Seletor de categoria (Peito, Costas, Pernas...)
-  - [ ] Botão para adicionar exercício
-  - [ ] Botão para salvar treino
-- [ ] Tela de Treinos
-  - [ ] Lista de treinos existentes
-  - [ ] Botão para verificar os treinos
-  - [ ] Para o treino do dia, mostras exercícios em sequência
-  - [ ] Para cada exercício, colocar o número de séries, número de repetições em cada série, peso e colocar notas ou observações
-  - [ ] Botões de concluir série e finalizar treino
-- [ ] Tela de Progresso
-  - [ ] Gráfico de evolução de peso corporal
-  - [ ] Recordes de peso por exercício
+- [x] Tela de Criação de Treinos
+  - [x] Campo para nome do treino
+  - [x] Seletor de categoria (Peito, Costas, Pernas...)
+  - [x] Botão para adicionar exercício
+  - [x] Botão para salvar treino
+- [x] Tela de Treinos
+  - [x] Lista de treinos existentes
+  - [x] Botão para verificar os treinos
+  - [x] Para o treino do dia, mostras exercícios em sequência
+  - [x] Para cada exercício, colocar o número de séries, número de repetições em cada série, peso e colocar notas ou observações
+  - [x] Botões de concluir série e finalizar treino
+- [x] Tela de Progresso
+  - [x] Gráfico de evolução de peso corporal
+  - [x] Recordes de peso por exercício
 - [ ] Tela de Atividade
   - [ ] Calendário com dias de treino marcados
   - [ ] Quantidade de treinos no mês atual
@@ -161,10 +163,10 @@ Esta parte do documento detalha o planejamento de desenvolvimento do aplicativo 
 **Objetivo:** Permitir ao usuário criar treinos personalizados e registrar treinos do dia.
 
 ### Tarefas:
-- [ ] Implementar Tela de Criação de treinos
-- [ ] Implementar Tela de Treinos
-- [ ] Listar os exercícios do dia com séries, repetições e pesos
-- [ ] Filtrar treinos por categoria
+- [x] Implementar Tela de Criação de treinos
+- [x] Implementar Tela de Treinos
+- [x] Listar os exercícios do dia com séries, repetições e pesos
+- [x] Filtrar treinos por categoria
 
 ---
 
@@ -174,10 +176,9 @@ Esta parte do documento detalha o planejamento de desenvolvimento do aplicativo 
 **Objetivo:**  Visualizar estatísticas de evolução e recordes.
 
 ### Tarefas:
-- [ ] Listar treinos anteriores
-- [ ] Tela de progresso com gráfico de evolução de peso corporal
-- [ ] Exibir recordes por exercício (maior carga levantada)
-- [ ] Integração com base de dados do usuário
+- [x] Tela de progresso com gráfico de evolução de peso corporal
+- [x] Exibir recordes por exercício (maior carga levantada)
+- [x] Integração com base de dados do usuário
 
 ---
 
