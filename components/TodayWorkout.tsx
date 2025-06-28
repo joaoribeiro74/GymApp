@@ -17,14 +17,7 @@ export default function TodayWorkout() {
 
   return (
     <View
-      className="bg-white rounded-[10] p-4"
-      style={{
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-      }}
+      className="bg-white rounded-[10] p-4 shadow-sm shadow-black"
     >
       <Text className="font-bold text-sm text-[#323232]">PRÓXIMO TREINO</Text>
       {nextWorkout ? (

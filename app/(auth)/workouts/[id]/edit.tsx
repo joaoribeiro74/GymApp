@@ -17,6 +17,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { doc, updateDoc } from "firebase/firestore";
 import useAuth from "../../../../firebase/hooks/useAuth";
 import useFirebase from "../../../../firebase/hooks/useFirebase";
+import * as NavigationBar from "expo-navigation-bar";
 
 type Exercise = {
   id: string;
@@ -54,6 +55,11 @@ export default function edit() {
     data: Exercise[];
     loading: boolean;
   };
+  
+  useEffect(() => {
+      NavigationBar.setBackgroundColorAsync("#ffffff");
+      NavigationBar.setButtonStyleAsync("dark");
+    }, []);
 
   const clearExercises = useCallback(() => setAddedExercises([]), []);
 
@@ -190,6 +196,7 @@ export default function edit() {
             paddingBottom: insets.bottom + 10,
             padding: 16,
           }}
+          keyboardShouldPersistTaps="handled"
           ListEmptyComponent={
             <Text className="text-center text-md text-[#323232] font-bold mt-4">
               EXERCÍCIO NÃO ENCONTRADO.
@@ -202,8 +209,8 @@ export default function edit() {
         onPress={() => setModalVisible(true)}
         mode="view"
       />
-      <Modal visible={modalVisible} animationType="slide">
-        <SafeAreaView className="flex-1 bg-[#d9d9d9] px-4">
+      <Modal visible={modalVisible} animationType="slide" transparent onRequestClose={() => setModalVisible(false)}>
+        <SafeAreaView className="flex-1 bg-[#ECEBEB] px-4">
           <View className="flex-row items-center justify-between pt-4">
             <TouchableOpacity onPress={() => setModalVisible(false)}>
               <Ionicons name="chevron-down" size={30} color="#323232" />

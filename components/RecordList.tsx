@@ -72,7 +72,7 @@ export default function RecordsList({ logs, templates, search }: Props) {
   function renderItem({ item }: { item: RecordEntry }) {
     return (
       <View>
-        <View className="bg-white p-3 rounded-xl mb-2 shadow-sm flex-row justify-between items-center">
+        <View className="bg-white p-3 rounded-xl mb-2 shadow-sm shadow-black flex-row justify-between items-center">
           <View>
             <Text className="font-black text-sm">
               {item.exercise.toUpperCase()}
@@ -98,6 +98,7 @@ export default function RecordsList({ logs, templates, search }: Props) {
       keyExtractor={(item) => item.exercise}
       renderItem={renderItem}
       contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 20 }}
+      showsVerticalScrollIndicator={false}
       ListEmptyComponent={
         <Text className="text-center text-md text-[#323232] font-bold mt-4">
           NENHUM RECORDE ENCONTRADO PARA ESTE EXERCÍCIO.

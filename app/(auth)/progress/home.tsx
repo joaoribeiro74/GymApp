@@ -47,7 +47,7 @@ export default function HomeProgress() {
 
   return (
     <SafeAreaView className="flex-1">
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View className="px-4 pb-4">
           <View>
             <ProgressWeight />

@@ -9,13 +9,13 @@ import StyledButton from "../../../components/StyledButton";
 import { router } from "expo-router";
 
 const dayOrder: { [key: string]: number } = {
-  DOMINGO: 0,
+  "DOMINGO": 0,
   "SEGUNDA-FEIRA": 1,
   "TERÇA-FEIRA": 2,
   "QUARTA-FEIRA": 3,
   "QUINTA-FEIRA": 4,
   "SEXTA-FEIRA": 5,
-  SÁBADO: 6,
+  "SÁBADO": 6,
 };
 export default function HomeWorkouts() {
   const { workouts } = useUserWorkouts();
@@ -33,7 +33,7 @@ export default function HomeWorkouts() {
         <View className="pb-8 flex-1">
           {sortedWorkouts.length === 0 ? (
             <View className="flex-1 items-center justify-center">
-              <View className="bg-white p-4 rounded-xl shadow-sm items-center justify-center">
+              <View className="bg-white p-4 rounded-xl shadow-sm shadow-black items-center justify-center">
                 <Text className="text-center text-md text-[#323232] font-bold mt-4 mb-2">
                   Nenhum treino encontrado.
                 </Text>
@@ -57,6 +57,7 @@ export default function HomeWorkouts() {
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => <WorkoutStructureCard workout={item} />}
               contentContainerStyle={{ padding: 16 }}
+              showsVerticalScrollIndicator={false}
             />
           )}
         </View>

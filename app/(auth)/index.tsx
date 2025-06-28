@@ -24,7 +24,7 @@ export default function Index() {
 
   return (
     <SafeAreaView>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View className="px-4 pb-4">
           <Text className="text-2xl font-bold text-[#323232]">
             OLÁ{data?.username ? `, ${data.username.toUpperCase()}` : ""}

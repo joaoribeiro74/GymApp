@@ -91,14 +91,7 @@ export default function Register() {
                 E-MAIL
               </Text>
               <TextInput
-                className="bg-white rounded-[8] px-4 py-4 mt-2 shadow"
-                style={{
-                  shadowColor: "#000",
-                  shadowOffset: { width: 0, height: 2 },
-                  shadowOpacity: 0.25,
-                  shadowRadius: 3.84,
-                  elevation: 5,
-                }}
+                className="bg-white rounded-[8] px-4 py-4 mt-2 shadow-sm shadow-black"
                 value={email}
                 onChangeText={setEmail}
                 keyboardType="email-address"
@@ -108,14 +101,7 @@ export default function Register() {
                 NOME DE USUÁRIO
               </Text>
               <TextInput
-                className="bg-white rounded-[8] px-4 py-4 mt-2 shadow"
-                style={{
-                  shadowColor: "#000",
-                  shadowOffset: { width: 0, height: 2 },
-                  shadowOpacity: 0.25,
-                  shadowRadius: 3.84,
-                  elevation: 5,
-                }}
+                className="bg-white rounded-[8] px-4 py-4 mt-2 shadow-sm shadow-black"
                 value={username}
                 onChangeText={setUsername}
                 cursorColor="#323232"
@@ -125,14 +111,7 @@ export default function Register() {
                 SENHA
               </Text>
               <View
-                className="bg-white rounded-[8] mt-2 shadow flex-row items-center px-4"
-                style={{
-                  shadowColor: "#000",
-                  shadowOffset: { width: 0, height: 2 },
-                  shadowOpacity: 0.25,
-                  shadowRadius: 3.84,
-                  elevation: 5,
-                }}
+                className="bg-white rounded-[8] mt-2 shadow-sm shadow-black flex-row items-center px-4"
               >
                 <TextInput
                   className="flex-1 py-4"
@@ -156,14 +135,7 @@ export default function Register() {
                 CONFIRME SUA SENHA
               </Text>
               <View
-                className="bg-white rounded-[8] mt-2 shadow flex-row items-center px-4 mb-10"
-                style={{
-                  shadowColor: "#000",
-                  shadowOffset: { width: 0, height: 2 },
-                  shadowOpacity: 0.25,
-                  shadowRadius: 3.84,
-                  elevation: 5,
-                }}
+                className="bg-white rounded-[8] mt-2 shadow-sm shadow-black flex-row items-center px-4 mb-10"
               >
                 <TextInput
                   className="flex-1 py-4"

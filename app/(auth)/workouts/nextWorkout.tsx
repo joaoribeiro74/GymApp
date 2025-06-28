@@ -23,7 +23,7 @@ export default function nextWorkout() {
   if (!nextWorkout) {
     return (
       <View className="flex-1 items-center justify-center">
-        <View className="bg-white p-4 rounded-xl shadow-sm items-center justify-center">
+        <View className="bg-white p-4 rounded-xl shadow-sm shadow-black items-center justify-center">
           <Text className="text-center text-md text-[#323232] font-bold mt-4 mb-2">
             Nenhum treino encontrado.
           </Text>
@@ -58,6 +58,7 @@ export default function nextWorkout() {
             paddingBottom: 80,
           }}
           keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
         >
           <EditExerciseCard workout={nextWorkout} defaultExpanded={true} />
         </ScrollView>

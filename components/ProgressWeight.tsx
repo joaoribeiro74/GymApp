@@ -37,14 +37,7 @@ export default function ProgressWeight() {
 
   return (
     <View
-      className="bg-white rounded-[10] p-4 mb-8"
-      style={{
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-      }}
+      className="bg-white rounded-[10] p-4 mb-8 shadow-sm shadow-black"
     >
       <Text className="text-left font-bold text-[#7B7B7B] text-sm mb-1">
         {dateRange}

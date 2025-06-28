@@ -72,6 +72,18 @@ export default function AuthLayout() {
             title: "TODOS OS RECORDES",
           }}
         />
+        <Drawer.Screen
+          name="activity/[id]/exerciseDetails"
+          options={{
+            title: "DETALHES DO TREINO",
+          }}
+        />
+        <Drawer.Screen
+          name="profile/home"
+          options={{
+            title: "PERFIL",
+          }}
+        />
       </Drawer>
     </GestureHandlerRootView>
   );

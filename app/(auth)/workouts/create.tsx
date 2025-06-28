@@ -5,6 +5,9 @@ import {
   Modal,
   TouchableOpacity,
   TextInput,
+  StatusBar,
+  Platform,
+  BackHandler,
 } from "react-native";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
@@ -146,8 +149,8 @@ export default function create() {
 
       const existingDays = querySnapshot.docs.reduce<string[]>((acc, doc) => {
         const data = doc.data();
-        if (Array.isArray(data.days)) {
-          acc.push(...data.days);
+        if (Array.isArray(data.day)) {
+          acc.push(...data.day);
         }
         return acc;
       }, []);
@@ -247,9 +250,8 @@ export default function create() {
         onPress={() => setModalVisible(true)}
         mode="view"
       />
-
-      <Modal visible={modalVisible} animationType="slide">
-        <SafeAreaView className="flex-1 bg-[#d9d9d9] px-4">
+      <Modal visible={modalVisible} animationType="slide" transparent onRequestClose={() => setModalVisible(false)}>
+        <SafeAreaView className="flex-1 bg-[#ECEBEB] px-4">
           <View className="flex-row items-center justify-between pt-4">
             <TouchableOpacity onPress={() => setModalVisible(false)}>
               <Ionicons name="chevron-down" size={30} color="#323232" />
@@ -259,37 +261,23 @@ export default function create() {
               <Text className="font-bold text-[#E10000] text-sm">Limpar</Text>
             </TouchableOpacity>
           </View>
-          <View className="pt-8 pb-8">
+          <View className="pt-6 pb-2">
             <Text className="font-bold text-[#323232]">NOME DO TREINO</Text>
             <TextInput
-              className="bg-white rounded-[8] py-4 mt-2 shadow font-bold px-4"
-              style={{
-                shadowColor: "#000",
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-              }}
+              className="bg-white rounded-[8] py-4 mt-2 shadow-sm shadow-black font-bold px-4"
               value={workoutName}
               onChangeText={setWorkoutName}
               cursorColor="#323232"
             ></TextInput>
           </View>
-          <View className="pt-6">
+          <View className="pt-2 pb-2">
             <Text className="font-bold text-[#323232] pb-2">DIA DA SEMANA</Text>
             <View className="flex-row flex-wrap justify-between">
               {Object.entries(weekDays).map(([sigla]) => (
                 <TouchableOpacity
                   key={sigla}
                   onPress={() => toggleDaySelection(sigla)}
-                  style={{
-                    shadowColor: "#000",
-                    shadowOffset: { width: 0, height: 2 },
-                    shadowOpacity: 0.25,
-                    shadowRadius: 3.84,
-                    elevation: 5,
-                  }}
-                  className={`shadow rounded-[8] p-2 ${
+                  className={`shadow-sm shadow-black rounded-[6] p-2 ${
                     selectedDay.includes(sigla) ? "bg-[#323232]" : "bg-white"
                   }`}
                 >
@@ -307,7 +295,7 @@ export default function create() {
             </View>
           </View>
 
-          <View className="flex-1 pt-12">
+          <View className="flex-1 pt-4 pb-4">
             <Text className="font-bold text-[#323232] pb-2">
               ORDEM DOS EXERCÍCIOS
             </Text>
@@ -328,6 +316,7 @@ export default function create() {
               )}
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{ paddingBottom: insets.bottom + 10 }}
+              keyboardShouldPersistTaps="handled"
             />
           </View>
           <View className="bottom-0 left-0 right-0 absolute">
