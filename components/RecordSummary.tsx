@@ -86,7 +86,7 @@ export default function RecordSummary({ logs, templates }: Props) {
       </Text>
 
       {topRecords.length === 0 ? (
-        <View className="bg-white p-4 rounded-xl shadow-sm items-center justify-center">
+        <View className="bg-white p-4 rounded-xl shadow-sm shadow-black items-center justify-center">
           <Text className="text-sm font-bold text-[#323232] mb-2">
             Nenhum recorde encontrado ainda.
           </Text>
@@ -98,7 +98,7 @@ export default function RecordSummary({ logs, templates }: Props) {
         topRecords.map((rec, idx) => (
           <View
             key={idx}
-            className="bg-white p-3 rounded-xl mb-2 shadow-sm flex-row justify-between items-center"
+            className="bg-white p-3 rounded-xl mb-2 shadow-sm shadow-black flex-row justify-between items-center"
           >
             <View>
               <Text className="font-black text-sm">

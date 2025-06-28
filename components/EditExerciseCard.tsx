@@ -36,14 +36,7 @@ export default function EditExerciseCard({
 
   return (
     <View
-      className="bg-white rounded-[10] flex p-2 mb-2 min-h-[80px]"
-      style={{
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-      }}
+      className="bg-white rounded-[10] flex p-2 mb-2 min-h-[80px] shadow-sm shadow-black"
     >
       <View className="p-2 flex-row items-center justify-between">
         <View className="flex-row items-center flex-1">
@@ -99,7 +92,7 @@ export default function EditExerciseCard({
                 onChangeText={(text) => handleSeriesChange(exercise.id, text)}
                 keyboardType="numeric"
                 cursorColor="#323232"
-                className="bg-[#EDEDED] rounded-[8] py-2 mb-4 shadow px-4 text-[#323232] font-black w-[20%]"
+                className="bg-[#f6f6f6] rounded-[8] py-2 mb-4 shadow-sm shadow-black px-4 text-[#323232] font-black w-[20%]"
               />
 
               {Array.from({ length: parseInt(state.series) || 0 }).map(
@@ -119,7 +112,7 @@ export default function EditExerciseCard({
                         }
                         keyboardType="numeric"
                         cursorColor="#323232"
-                        className="bg-[#EDEDED] rounded-[8] py-2 px-4 shadow text-[#323232] font-black"
+                        className="bg-[#f6f6f6] rounded-[8] py-2 px-4 shadow-sm shadow-black text-[#323232] font-black"
                       />
                     </View>
                     <View className="flex-1">
@@ -133,7 +126,7 @@ export default function EditExerciseCard({
                         }
                         keyboardType="numeric"
                         cursorColor="#323232"
-                        className="bg-[#EDEDED] rounded-[8] py-2 px-4 shadow text-[#323232] font-black"
+                        className="bg-[#f6f6f6] rounded-[8] py-2 px-4 shadow-sm shadow-black text-[#323232] font-black"
                       />
                     </View>
                   </View>
@@ -153,7 +146,7 @@ export default function EditExerciseCard({
             multiline
             maxLength={150}
             cursorColor="#323232"
-            className="bg-[#EDEDED] rounded-[8] py-2 mb-4 shadow px-4 text-[#323232] font-bold"
+            className="bg-[#f6f6f6] rounded-[8] py-2 mb-4 shadow-sm shadow-black px-4 text-[#323232] font-bold"
           />
 
           <TouchableOpacity

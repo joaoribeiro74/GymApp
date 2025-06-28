@@ -11,15 +11,7 @@ export default function SearchInput({
 }) {
   return (
     <View
-      className="bg-white rounded-[50] px-2 py-2 mt-3 flex-row items-center shadow mb-8"
-      style={{
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-      }}
-    >
+      className="bg-white rounded-[50] px-2 py-2 mt-3 flex-row items-center shadow-md shadow-black mb-8">
       <View className="bg-[#EBEBEB] py-4 px-2 rounded-full mr-2">
         <FontAwesome5
           name="search"

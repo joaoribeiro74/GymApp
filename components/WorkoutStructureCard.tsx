@@ -21,16 +21,7 @@ export default function WorkoutStructureCard({
   const router = useRouter();
 
   return (
-    <View
-      className="bg-white rounded-[10] flex p-2 mb-2 min-h-[80px]"
-      style={{
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-      }}
-    >
+    <View className="bg-white rounded-[10] flex p-2 mb-2 min-h-[80px] shadow-sm shadow-black">
       <View className="p-2 flex-row items-center justify-between">
         <View className="flex-row items-center flex-1">
           <TouchableOpacity

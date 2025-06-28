@@ -19,7 +19,7 @@ export default function AddExerciseCard({
   mode = "select",
 }: AddExerciseCardProps) {
   return (
-    <View className="bg-white rounded-[10] p-2 mb-2 flex flex-row items-center min-h-[100px]">
+    <View className="bg-white rounded-[10] p-2 mb-2 flex flex-row items-center min-h-[100px] shadow-sm shadow-black">
       <View className="p-2 flex-col flex-1">
         <Text className="text-lg font-black text-[#323232]">{name}</Text>
         <Text className="text-sm font-semibold text-gray-500">{category}</Text>

@@ -76,11 +76,11 @@ Criar o arquivo firebaseConfig.ts e colocar as credenciais
 - [x] Tela de Progresso
   - [x] Gráfico de evolução de peso corporal
   - [x] Recordes de peso por exercício
-- [ ] Tela de Atividade
-  - [ ] Calendário com dias de treino marcados
-  - [ ] Quantidade de treinos no mês atual
-  - [ ] Média de treinos por semana
-  - [ ] Botão para ver detalhes de um dia específico
+- [x] Tela de Atividade
+  - [x] Calendário com dias de treino marcados
+  - [x] Quantidade de treinos no mês atual
+  - [x] Média de treinos por semana
+  - [x] Botão para ver detalhes de um dia específico
 - [ ] Tela de Perfil
   - [ ] Foto do usuário (avatar ou real)
   - [ ] Nome de usuário
@@ -188,9 +188,10 @@ Esta parte do documento detalha o planejamento de desenvolvimento do aplicativo 
 **Objetivo:** Mostrar um resumo da frequência de treinos e atividade geral do usuário.
 
 ### Tarefas:
-- [ ] Contagem de treinos realizados no mês
-- [ ] Dias frequentados exibidos em calendário
-- [ ] Exibir tempo médio de treino por sessão (opcional)
+- [x] Calendário com dias de treino marcados
+- [x] Quantidade de treinos no mês atual
+- [x] Média de treinos por semana
+- [x] Botão para ver detalhes de um dia específico
 
 ---
 

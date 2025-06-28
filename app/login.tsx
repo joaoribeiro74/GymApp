@@ -65,14 +65,9 @@ export default function Login() {
             contentContainerStyle={{ paddingBottom: 20 }}
           >
             <View
-              className="bg-white items-center justify-center rounded-b-[30] shadow"
+              className="bg-white items-center justify-center rounded-b-[30] shadow-md shadow-black"
               style={{
                 height: screenHeight * 0.3,
-                shadowColor: "#000",
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
               }}
             >
               <Image
@@ -86,14 +81,7 @@ export default function Login() {
                 E-MAIL
               </Text>
               <TextInput
-                className="bg-white rounded-[8] px-4 py-4 mt-2 shadow"
-                style={{
-                  shadowColor: "#000",
-                  shadowOffset: { width: 0, height: 2 },
-                  shadowOpacity: 0.25,
-                  shadowRadius: 3.84,
-                  elevation: 5,
-                }}
+                className="bg-white rounded-[8] px-4 py-4 mt-2 shadow-sm shadow-black"
                 value={email}
                 onChangeText={setEmail}
                 cursorColor="#323232"
@@ -102,16 +90,7 @@ export default function Login() {
               <Text className="text-sm font-bold text-[#323232] mt-8 text-left">
                 SENHA
               </Text>
-              <View
-                className="bg-white rounded-[8] mt-2 shadow flex-row items-center px-4"
-                style={{
-                  shadowColor: "#000",
-                  shadowOffset: { width: 0, height: 2 },
-                  shadowOpacity: 0.25,
-                  shadowRadius: 3.84,
-                  elevation: 5,
-                }}
-              >
+              <View className="bg-white rounded-[8] mt-2 shadow-sm shadow-black flex-row items-center px-4">
                 <TextInput
                   className="flex-1 py-4 pr-2"
                   value={password}

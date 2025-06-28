@@ -56,6 +56,11 @@ export default function CustomDrawerContent({ navigation, state }: Props) {
       label: "Atividade",
       route: "activity/home",
     },
+    {
+      icon: <Ionicons name="person" size={20} color="#323232" />,
+      label: "Perfil",
+      route: "profile/home",
+    },
   ];
 
   return (

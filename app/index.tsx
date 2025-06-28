@@ -35,14 +35,7 @@ export default function Index() {
   return (
     <View className="bg-[#d9d9d9] h-full">
       <View
-        className="bg-white h-1/2 items-center justify-center rounded-b-[50] shadow"
-        style={{
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.25,
-          shadowRadius: 3.84,
-          elevation: 5,
-        }}
+        className="bg-white h-1/2 items-center justify-center rounded-b-[50] shadow-sm shadow-black"
       >
         <Image source={require("../assets/logo.png")} className="" />
       </View>
