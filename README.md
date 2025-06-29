@@ -201,11 +201,17 @@ Esta parte do documento detalha o planejamento de desenvolvimento do aplicativo 
 **Objetivo:** Permitir ao usuário editar seu perfil e configurar preferências.
 
 ### Tarefas:
-- [ ] Tela de perfil com nome, foto, e-mail e objetivos
-- [ ] Tela de configurações com opções:
-  - Tema (claro/escuro)
-  - Notificações
-  - Logout
+- [ ] Tela de Perfil
+  - [ ] Foto do usuário (avatar ou real)
+  - [ ] Nome de usuário
+  - [ ] E-mail
+  - [ ] Peso atual (editável)
+  - [ ] Objetivo: perder peso, ganhar massa, etc
+  - [ ] Botão de editar perfil
+- [ ] Tela de Configurações
+  - [ ] Tema (claro/escuro)
+  - [ ] Deslogar
+  - [ ] Sobre o app / Versão
 
 ---
 

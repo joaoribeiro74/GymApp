@@ -73,15 +73,10 @@ export default function AuthLayout() {
           }}
         />
         <Drawer.Screen
-          name="activity/[id]/exerciseDetails"
-          options={{
-            title: "DETALHES DO TREINO",
-          }}
-        />
-        <Drawer.Screen
           name="profile/home"
           options={{
             title: "PERFIL",
+            headerShadowVisible: false,
           }}
         />
       </Drawer>

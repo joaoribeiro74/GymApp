@@ -29,6 +29,8 @@
     "react-native-gesture-handler": "~2.24.0",
     "react-native-gifted-charts": "^1.4.61",
     "react-native-linear-gradient": "^2.8.3",
+    "react-native-mask-input": "^1.2.3",
+    "react-native-mask-text": "^0.15.0",
     "react-native-modal": "^14.0.0-rc.1",
     "react-native-navigation-bar-color": "^2.0.2",
     "react-native-reanimated": "~3.17.4",

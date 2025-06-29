@@ -6,7 +6,7 @@ import useUserWorkouts, { WorkoutLog } from "../../../hooks/useUserWorkouts";
 import Loading from "../../../components/Loading";
 import StyledButton from "../../../components/StyledButton";
 import { AntDesign, FontAwesome6, MaterialIcons } from "@expo/vector-icons";
-import { router } from "expo-router";
+import { router, useRouter } from "expo-router";
 import { Calendar, LocaleConfig } from "react-native-calendars";
 
 type CalendarDay = {
@@ -66,9 +66,9 @@ function filterLast30Days(logs: WorkoutLog[]) {
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(today.getDate() - 30);
 
-  return logs.filter((log) => {
-    return log.date >= thirtyDaysAgo && log.date <= today;
-  });
+  return logs
+    .filter((log) => log.date >= thirtyDaysAgo && log.date <= today)
+    .sort((a, b) => b.date.getTime() - a.date.getTime());
 }
 
 function getMarkedDates(logs: WorkoutLog[]) {
@@ -110,14 +110,14 @@ function getWeeklyAverage(logs: WorkoutLog[]) {
   );
 
   const days = (last.getTime() - first.getTime()) / (1000 * 60 * 60 * 24);
-  const weeks = Math.max(days / 7, 1); // evita divisão por 0
+  const weeks = Math.max(days / 7, 1); 
 
   return (logs.length / weeks).toFixed(1);
 }
 export default function HomeActivity() {
   const { workoutLogs, loading } = useUserWorkouts();
   const last30DaysLogs = filterLast30Days(workoutLogs);
-  const [currentMonth, setCurrentMonth] = useState("2025-06");
+  const [currentMonth, setCurrentMonth] = useState("2025-06");  
 
   const markedDates = useMemo(() => getMarkedDates(workoutLogs), [workoutLogs]);
   const currentMonthLogs = useMemo(
