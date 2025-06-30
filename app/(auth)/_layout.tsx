@@ -52,6 +52,7 @@ export default function AuthLayout() {
           name="settings/home"
           options={{
             title: "CONFIGURAÇÕES",
+            headerShadowVisible: false,
           }}
         />
         <Drawer.Screen
@@ -83,6 +84,25 @@ export default function AuthLayout() {
           name="activity/[id]/workoutDetails"
           options={{
             title: "DETALHES DO TREINO",
+          }}
+        />
+        <Drawer.Screen
+          name="settings/editUsername"
+          options={{
+            title: "NOME DE USUÁRIO",
+          }}
+        />
+        <Drawer.Screen
+          name="settings/resetPassword"
+          options={{
+            title: "SENHA",
+          }}
+        />
+        <Drawer.Screen
+          name="settings/themeSettings"
+          options={{
+            title: "TEMA",
+            headerShadowVisible: false,
           }}
         />
       </Drawer>

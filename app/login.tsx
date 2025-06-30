@@ -25,8 +25,8 @@ export default function Login() {
   const { user, login, loading } = useAuth();
   const router = useRouter();
 
-  const [email, setEmail] = useState("joao@example.com");
-  const [password, setPassword] = useState("joao1234@");
+  const [email, setEmail] = useState("jvcarvalho09@hotmail.com");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ export default function Login() {
             contentContainerStyle={{ paddingBottom: 20 }}
           >
             <View
-              className="bg-white items-center justify-center rounded-b-[30] shadow-md shadow-black"
+              className="bg-white dark:bg-black items-center justify-center rounded-b-[30] shadow-md shadow-black"
               style={{
                 height: screenHeight * 0.3,
               }}

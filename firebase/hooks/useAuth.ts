@@ -6,6 +6,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 
 import useFirebase from "./useFirebase";
@@ -130,11 +131,17 @@ export default function useAuth() {
 
     const cleanedUsername = username.toLowerCase().trim();
 
-    if (cleanedUsername.length > 32)
-      throw new Error("O nome de usuário deve ter no máximo 32 caracteres.");
+    if (cleanedUsername.length > 20)
+      throw new Error("O nome de usuário deve ter no máximo 20 caracteres.");
 
     if (/\s/.test(cleanedUsername))
       throw new Error("O nome de usuário não pode conter espaços.");
+
+    if (!/^[a-zA-Z0-9_-]+$/.test(cleanedUsername)) {
+      throw new Error(
+        "Não use caracteres especiais e acentos, exceto - e _."
+      );
+    }
 
     const passwordError = isPasswordValid(password);
     if (passwordError) throw new Error(passwordError);
@@ -162,6 +169,16 @@ export default function useAuth() {
     }
   };
 
+  const resetPassword = async (email: string) => {
+  if (!auth) throw new Error("Auth not initialized");
+
+  try {
+    await sendPasswordResetEmail(auth, email);
+  } catch (error: any) {
+    throw new Error(translateAuthError(error.code));
+  }
+};
+
   useEffect(() => {
     if (auth) {
       onAuthStateChanged(auth, (user) => {
@@ -175,5 +192,5 @@ export default function useAuth() {
     }
   }, [auth]);
 
-  return { loading, user, login, logout, registerUser };
+  return { loading, user, login, logout, registerUser, isUsernameTaken, resetPassword };
 }
