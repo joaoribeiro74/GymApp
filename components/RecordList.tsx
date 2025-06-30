@@ -81,7 +81,7 @@ export default function RecordsList({ logs, templates, search }: Props) {
               {item.category.toUpperCase()}
             </Text>
             <Text className="text-[#323232] font-light text-sm">
-              {item.lastDate.toLocaleDateString()}
+              {item.lastDate.toLocaleDateString("pt-BR")}
             </Text>
           </View>
           <Text className="font-bold text-sm text-right">
@@ -101,7 +101,7 @@ export default function RecordsList({ logs, templates, search }: Props) {
       showsVerticalScrollIndicator={false}
       ListEmptyComponent={
         <Text className="text-center text-md text-[#323232] font-bold mt-4">
-          NENHUM RECORDE ENCONTRADO PARA ESTE EXERCÍCIO.
+          NENHUM RECORDE ENCONTRADO.
         </Text>
       }
     />

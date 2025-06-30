@@ -8,6 +8,7 @@ import StyledButton from "../../../components/StyledButton";
 import { AntDesign, FontAwesome6, MaterialIcons } from "@expo/vector-icons";
 import { router, useRouter } from "expo-router";
 import { Calendar, LocaleConfig } from "react-native-calendars";
+import { getAuth } from "firebase/auth";
 
 type CalendarDay = {
   dateString: string;
@@ -71,11 +72,22 @@ function filterLast30Days(logs: WorkoutLog[]) {
     .sort((a, b) => b.date.getTime() - a.date.getTime());
 }
 
+function formatDateToLocalISO(date: Date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function formatYearMonth(date: Date) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+}
+
 function getMarkedDates(logs: WorkoutLog[]) {
   const marks: Record<string, any> = {};
   logs.forEach((log) => {
     const date = new Date(log.date);
-    const key = date.toISOString().split("T")[0];
+    const key = formatDateToLocalISO(date);
     marks[key] = {
       selected: true,
       selectedColor: "#323232",
@@ -110,14 +122,17 @@ function getWeeklyAverage(logs: WorkoutLog[]) {
   );
 
   const days = (last.getTime() - first.getTime()) / (1000 * 60 * 60 * 24);
-  const weeks = Math.max(days / 7, 1); 
+  const weeks = Math.max(days / 7, 1);
 
   return (logs.length / weeks).toFixed(1);
 }
 export default function HomeActivity() {
+  const auth = getAuth();
   const { workoutLogs, loading } = useUserWorkouts();
   const last30DaysLogs = filterLast30Days(workoutLogs);
-  const [currentMonth, setCurrentMonth] = useState("2025-06");  
+ const [currentMonth, setCurrentMonth] = useState<string>(formatYearMonth(new Date()));
+  const creationTime = auth.currentUser?.metadata?.creationTime;
+  const creationDate = creationTime ? new Date(creationTime) : null;
 
   const markedDates = useMemo(() => getMarkedDates(workoutLogs), [workoutLogs]);
   const currentMonthLogs = useMemo(
@@ -133,7 +148,7 @@ export default function HomeActivity() {
 
   function handleDayPress(day: CalendarDay) {
     const hasWorkout = workoutLogs.some(
-      (log) => log.date.toISOString().split("T")[0] === day.dateString
+      (log) => formatDateToLocalISO(log.date) === day.dateString
     );
 
     const [year, month, dayPart] = day.dateString.split("-");
@@ -185,7 +200,7 @@ export default function HomeActivity() {
               markedDates={markedDates}
               onDayPress={handleDayPress}
               hideExtraDays
-              minDate={"2025-06-01"}
+              minDate={creationDate?.toLocaleDateString("en-CA")}
               theme={{
                 selectedDayBackgroundColor: "#1DAA2D",
                 todayTextColor: "#1DAA2D",
@@ -208,7 +223,9 @@ export default function HomeActivity() {
               }}
             />
 
-            <Text className="text-md font-black mt-4 mb-2">ATIVIDADE DO MÊS</Text>
+            <Text className="text-md font-black mt-4 mb-2">
+              ATIVIDADE DO MÊS
+            </Text>
             <View className="bg-white p-4 rounded-xl shadow-sm shadow-black mb-4">
               <View className="flex-row items-center gap-2 mb-4">
                 <FontAwesome6 name="dumbbell" size={16} color="#323232" />

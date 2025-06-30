@@ -17,7 +17,6 @@ type Props = {
 export default function CustomDrawerContent({ navigation, state }: Props) {
   const { user } = useAuth();
   const { data } = useDocument<User>("users", user?.uid ?? "");
-  const avatarUri = "";
   const { logout } = useAuth();
 
   const navigateTo = (screenName: string) => {
@@ -67,14 +66,14 @@ export default function CustomDrawerContent({ navigation, state }: Props) {
     <View className="flex-1 bg-white justify-between">
       <View className="pt-4">
         <View className="items-start pt-8 pb-4 px-4">
-          {avatarUri ? (
+          {data?.avatar ? (
             <Image
-              source={{ uri: avatarUri }}
-              className="w-[60px] h-[60px] rounded-full"
+              source={{ uri: data?.avatar }}
+              className="w-[80px] h-[80px] rounded-full"
             />
           ) : (
-            <View className="w-[60px] h-[60px] rounded-full items-center justify-center">
-              <FontAwesome name="user-circle-o" size={60} color="#323232" />
+            <View className="w-[80px] h-[80px] rounded-full items-center justify-center">
+              <FontAwesome name="user-circle-o" size={80} color="#323232" />
             </View>
           )}
           <Text className="mt-3 mb-2 text-xl font-bold text-[#323232]">
@@ -85,8 +84,8 @@ export default function CustomDrawerContent({ navigation, state }: Props) {
         <View className="border-t border-[#323232] opacity-25" />
 
         <View className="py-4">
-          {drawerItems.map((item, index) => {
-            const isActive = state.index === index;
+          {drawerItems.map((item) => {
+            const isActive = state.routeNames[state.index] === item.route;
             return (
               <TouchableOpacity
                 key={item.route}
@@ -109,7 +108,7 @@ export default function CustomDrawerContent({ navigation, state }: Props) {
         <View className="py-4">
           <TouchableOpacity
             className={`flex-row items-center px-4 py-4 ${
-              state.routeNames[state.index] === "settings" ? "bg-[#f6f6f6]" : ""
+              state.routeNames[state.index] === "settings/home" ? "bg-[#f6f6f6]" : ""
             }`}
             onPress={() => navigateTo("settings/home")}
           >

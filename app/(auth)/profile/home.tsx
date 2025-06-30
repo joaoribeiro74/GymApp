@@ -9,6 +9,7 @@ import { TextInput } from "react-native-gesture-handler";
 import Toast from "react-native-toast-message";
 import toastConfig from "../../../components/CustomToast";
 import MaskInput from "react-native-mask-input";
+import * as ImagePicker from "expo-image-picker";
 
 export default function home() {
   const { user } = useAuth();
@@ -18,30 +19,59 @@ export default function home() {
   const [weight, setWeight] = useState(data?.weight?.toString() ?? "");
   const [height, setHeight] = useState(data?.height?.toString() ?? "");
   const [goal, setGoal] = useState(data?.goal ?? "");
+  const [avatar, setAvatar] = useState(data?.avatar ?? "");
 
-  const avatarUri = "";
+  const pickImage = async () => {
+    const permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (!permissionResult.granted) {
+      Toast.show({
+        type: "customError",
+        text1: "Permissão negada para acessar a galeria.",
+        position: "top",
+        visibilityTime: 3000,
+        autoHide: true,
+        swipeable: true,
+      });
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ["images"],
+      quality: 0.7,
+      allowsEditing: true,
+      aspect: [1, 1],
+    });
+
+    if (!result.canceled && result.assets.length > 0) {
+      setAvatar(result.assets[0].uri);
+    }
+  };
 
   React.useEffect(() => {
     if (modalVisible && data) {
-      setWeight(data.weight?.toString() ?? "");
-      setHeight(data.height?.toString() ?? "");
-      setGoal(data.goal ?? "");
+      if (data.weight?.toString() !== weight)
+        setWeight(data.weight?.toString() ?? "");
+      if (data.height?.toString() !== height)
+        setHeight(data.height?.toString() ?? "");
+      if (data.goal !== goal) setGoal(data.goal ?? "");
+      if (data.avatar !== avatar) setAvatar(data.avatar ?? "");
     }
   }, [modalVisible, data]);
   const handleSave = async () => {
     if (!data?.email || !data?.username) return;
 
     if (!weight.trim() || !height.trim()) {
-    Toast.show({
-      type: "customError",
-      text1: "Preencha peso e altura corretamente!",
-      position: "top",
-      visibilityTime: 3000,
-      autoHide: true,
-      swipeable: true,
-    });
-    return;
-  }
+      Toast.show({
+        type: "customError",
+        text1: "Preencha peso e altura corretamente!",
+        position: "top",
+        visibilityTime: 3000,
+        autoHide: true,
+        swipeable: true,
+      });
+      return;
+    }
 
     const newWeight = Number(weight);
     const newHeight = Number(height);
@@ -49,7 +79,7 @@ export default function home() {
     const originalHeight = Number(data.height);
     const originalGoal = data.goal ?? "";
 
-    const heightPattern = /^\d+\.\d{2}$/;
+    const heightPattern = /^\d+(\.\d{1,2})?$/;
     const MAX_WEIGHT = 500;
 
     if (isNaN(newWeight) || newWeight <= 0 || newWeight > MAX_WEIGHT) {
@@ -79,8 +109,14 @@ export default function home() {
     const goalUnchanged = goal.trim() === originalGoal.trim();
     const weightUnchanged = newWeight === originalWeight;
     const heightUnchanged = newHeight === originalHeight;
+    const avatarUnchanged = avatar === data.avatar;
 
-    if (goalUnchanged && weightUnchanged && heightUnchanged) {
+    if (
+      goalUnchanged &&
+      weightUnchanged &&
+      heightUnchanged &&
+      avatarUnchanged
+    ) {
       Toast.show({
         type: "customError",
         text1: "Nenhuma modificação foi feita.",
@@ -92,27 +128,47 @@ export default function home() {
       return;
     }
 
-    const newEntry = {
-      date: new Date().toISOString(),
-      weight: newWeight,
-    };
+    const today = new Date().toISOString().split("T")[0];
+    const weightHistory = [...(data?.weightHistory ?? [])];
+
+    const alreadyRegisteredToday = weightHistory.some(
+      (entry) => entry.date.split("T")[0] === today
+    );
+
+    if (!weightUnchanged && alreadyRegisteredToday) {
+      Toast.show({
+        type: "customError",
+        text1: "Você já registrou seu peso hoje!",
+        position: "top",
+        visibilityTime: 3000,
+        autoHide: true,
+        swipeable: true,
+      });
+      return;
+    }
+
+    if (!alreadyRegisteredToday) {
+      weightHistory.push({
+        date: new Date().toISOString(),
+        weight: newWeight,
+      });
+    }
 
     const { id, ...cleanedData } = data;
 
-    const lastWeight = data?.weight;
-    const weightHistory = [...(data?.weightHistory ?? [])];
-
-    if (lastWeight !== newWeight) {
-      weightHistory.push(newEntry);
-    }
-
-    await upsert({
+    const updatedUser = {
       ...cleanedData,
       weight: newWeight,
       height: newHeight,
       goal,
       weightHistory,
-    });
+    };
+
+    if (!avatarUnchanged) {
+      updatedUser.avatar = avatar ?? null;
+    }
+
+    await upsert(updatedUser);
 
     Toast.show({
       type: "customSuccess",
@@ -135,7 +191,7 @@ export default function home() {
   };
 
   const getIMCClassification = () => {
-    const imc = parseFloat(calculateIMC()); // ✅ garante tipo number
+    const imc = parseFloat(calculateIMC());
     if (isNaN(imc)) return "-";
 
     if (imc < 18.5) return "Abaixo do peso";
@@ -149,14 +205,14 @@ export default function home() {
   return (
     <View className="bg-white rounded-b-[30] shadow-md shadow-black px-8 pt-8 pb-8">
       <View className="items-center flex-row gap-4 justify-center">
-        {avatarUri ? (
+        {data?.avatar ? (
           <Image
-            source={{ uri: avatarUri }}
-            className="w-[60px] h-[60px] rounded-full"
+            source={{ uri: data?.avatar }}
+            className="w-[80px] h-[80px] rounded-full"
           />
         ) : (
-          <View className="w-[60px] h-[60px] rounded-full">
-            <FontAwesome name="user-circle-o" size={60} color="#323232" />
+          <View className="w-[80px] h-[80px] rounded-full">
+            <FontAwesome name="user-circle-o" size={80} color="#323232" />
           </View>
         )}
         <View>
@@ -246,6 +302,38 @@ export default function home() {
                 <Text> </Text>
               </View>
             </View>
+            <View className="items-center mb-6">
+              <TouchableOpacity
+                onPress={pickImage}
+                accessibilityLabel="Selecionar imagem de perfil"
+                accessibilityHint="Abre a galeria para selecionar uma nova imagem de perfil"
+              >
+                {avatar ? (
+                  <Image
+                    source={{ uri: avatar }}
+                    className="w-[100px] h-[100px] rounded-full"
+                  />
+                ) : (
+                  <View className="w-[100px] h-[100px] rounded-full bg-white justify-center items-center">
+                    <FontAwesome
+                      name="user-circle-o"
+                      size={100}
+                      color="#323232"
+                    />
+                  </View>
+                )}
+              </TouchableOpacity>
+              <Text className="text-sm text-[#323232] mt-2">
+                Toque para alterar a foto
+              </Text>
+              {avatar && (
+                <TouchableOpacity onPress={() => setAvatar("")}>
+                  <Text className="text-xs text-[#E10000] mt-2">
+                    Remover foto
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </View>
             <View className="pt-6 pb-2">
               <Text className="text-sm font-bold text-[#323232]">
                 OBJETIVO (Opcional)
@@ -260,7 +348,7 @@ export default function home() {
             </View>
             <View className="pt-2 pb-2">
               <Text className="text-sm font-bold text-[#323232]">
-                PESO (KG)
+                PESO ATUAL (KG)
               </Text>
               <TextInput
                 value={weight}

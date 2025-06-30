@@ -21,7 +21,7 @@ export default function ViewExerciseCard({
       <View className="p-2">
         <Text className="text-2xl font-black text-black">
           {workoutLog.name} -{" "}
-          {new Date(workoutLog.date).toLocaleDateString("pt-BR")}
+          {formattedDate}
         </Text>
         <Text className="text-sm font-bold text-[#323232]">
           {workoutLog.exercises.length} EXERCÍCIOS

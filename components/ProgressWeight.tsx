@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { BarChart } from "react-native-gifted-charts";
 import { weightStats } from "../mocks/data";
+import useAuth from "../firebase/hooks/useAuth";
+import useDocument from "../firebase/hooks/useDocument";
+import User from "../types/User";
+
 
 type ChartTooltipItem = {
   value: number;
@@ -10,11 +14,38 @@ type ChartTooltipItem = {
 };
 
 export default function ProgressWeight() {
+  const { user } = useAuth();
+  const { data } = useDocument<User>("users", user?.uid ?? "");
+
+  const weightStats = useMemo(() => {
+    if (!data?.weightHistory) return [];
+    return [...data.weightHistory].sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
+  }, [data]);
+
+  if (weightStats.length === 0) {
+    return (
+      <View className="bg-white p-4 rounded-xl shadow-sm shadow-black items-center justify-center mb-4">
+        <Text className="text-sm font-bold text-[#323232] mb-2">
+          Nenhum peso registrado ainda.
+        </Text>
+        <Text className="text-xs text-[#666] font-normal text-center mb-2">
+          Registre seu peso corporal na tela de perfil para acompanhar sua evolução aqui!
+        </Text>
+      </View>
+    );
+  }
+
   const maxValue = Math.max(...weightStats.map((item) => item.weight));
 
   const chartData = weightStats.map((item) => ({
     value: item.weight,
-    label: item.description,
+    label: new Date(item.date).toLocaleDateString("pt-BR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "2-digit",
+    }),
     frontColor: item.weight === maxValue ? "#1DAA2D" : "#323232",
   }));
   const stepSize = 20;
@@ -63,8 +94,8 @@ export default function ProgressWeight() {
           stepHeight={40}
           isAnimated
           activeOpacity={0.9}
+          width={Math.max(chartData.length * 55 + 40, 300)}
           renderTooltip={(item: ChartTooltipItem) => {
-            const maxValue = Math.max(...chartData.map((d) => d.value));
             const isMax = item.value === maxValue;
 
             return (

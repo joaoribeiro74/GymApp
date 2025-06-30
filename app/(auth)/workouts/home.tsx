@@ -4,7 +4,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import useUserWorkouts from "../../../hooks/useUserWorkouts";
 import { FlatList } from "react-native-gesture-handler";
 import WorkoutStructureCard from "../../../components/WorkoutStructureCard";
-import { AntDesign, Ionicons } from "@expo/vector-icons";
 import StyledButton from "../../../components/StyledButton";
 import { router } from "expo-router";
 

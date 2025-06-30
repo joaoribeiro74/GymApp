@@ -22,7 +22,7 @@ export default function WorkoutHistoryCard({ log }: Props) {
             {formattedDate}
           </Text>
       </View>
-      <TouchableOpacity onPress={() => router.push(`/activity/${log.id}/exerciseDetails`)}>
+      <TouchableOpacity onPress={() => router.push(`/activity/${log.id}/workoutDetails`)}>
         <Ionicons name="eye" size={30} color="#323232" />
       </TouchableOpacity>
     </View>

@@ -11,6 +11,7 @@ type User = {
     weight?: number;
     goal?: string;
     weightHistory?: weightEntry[];
+    avatar?: string;
 };
 
 export default User;

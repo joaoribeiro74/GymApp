@@ -79,6 +79,12 @@ export default function AuthLayout() {
             headerShadowVisible: false,
           }}
         />
+        <Drawer.Screen
+          name="activity/[id]/workoutDetails"
+          options={{
+            title: "DETALHES DO TREINO",
+          }}
+        />
       </Drawer>
     </GestureHandlerRootView>
   );

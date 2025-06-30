@@ -174,7 +174,6 @@ export default function create() {
         return;
       }
       await addDoc(workoutTemplatesRef, {
-        userId: user?.uid,
         name: workoutName.trim().toUpperCase(),
         exercises: addedExercises,
         day: selectedDaysFull,
