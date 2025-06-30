@@ -3,16 +3,33 @@ import React from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
 import CustomDrawerContent from "../../components/CustomDrawer";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function AuthLayout() {
+  const { theme } = useTheme();
+
+  const backgroundColor = theme === "dark" ? "#1f2937" : "#ffffff";
+  const headerTextColor = theme === "dark" ? "#ffffff" : "#1f2937"; 
+  const drawerLabelColor = theme === "dark" ? "#f9fafb" : "#111827";
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Drawer
         drawerContent={(props) => <CustomDrawerContent {...props} />}
         screenOptions={{
           drawerStyle: {
+            backgroundColor: backgroundColor,
             width: 280,
           },
+          headerStyle: {
+            backgroundColor: backgroundColor,
+          },
+          headerTitleStyle: {
+            color: headerTextColor,
+            fontWeight: "bold",
+            fontSize: 18,
+          },
+          headerTintColor: headerTextColor,
           headerRight: () => (
             <Image
               source={require("../../assets/logo.png")}

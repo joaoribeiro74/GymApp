@@ -12,10 +12,12 @@ import StyledButton from "../../components/StyledButton";
 import { AntDesign } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function Index() {
   useNavigationExitOnBack();
 
+  const { theme } = useTheme();
   const { user } = useAuth();
 
   const { data, loading } = useDocument<User>("users", user?.uid ?? "");
@@ -23,9 +25,9 @@ export default function Index() {
   if (loading) return <Loading />;
 
   return (
-    <SafeAreaView>
+    <SafeAreaView className="flex-1 dark:bg-gray-900">
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View className="px-4 pb-4">
+        <View className="px-4 pb-4 dark:bg-gray-900">
           <Text className="text-2xl font-bold text-[#323232]">
             OLÁ{data?.username ? `, ${data.username.toUpperCase()}` : ""}
           </Text>

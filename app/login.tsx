@@ -19,11 +19,12 @@ import StyledButton from "../components/StyledButton";
 import Toast from "react-native-toast-message";
 import { Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-
+import { useTheme } from "../context/ThemeContext";
 export default function Login() {
   const screenHeight = Dimensions.get("window").height;
   const { user, login, loading } = useAuth();
   const router = useRouter();
+  const { isDark } = useTheme();
 
   const [email, setEmail] = useState("jvcarvalho09@hotmail.com");
   const [password, setPassword] = useState("");
@@ -55,7 +56,7 @@ export default function Login() {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <SafeAreaView className="bg-[#d9d9d9] flex-1">
+      <SafeAreaView className="bg-[#d9d9d9] dark:bg-gray-900 flex-1">
         <KeyboardAvoidingView
           style={{ flex: 1 }}
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -65,7 +66,7 @@ export default function Login() {
             contentContainerStyle={{ paddingBottom: 20 }}
           >
             <View
-              className="bg-white dark:bg-black items-center justify-center rounded-b-[30] shadow-md shadow-black"
+              className="bg-white dark:bg-gray-800 items-center justify-center rounded-b-[30] shadow-md shadow-black"
               style={{
                 height: screenHeight * 0.3,
               }}
@@ -77,26 +78,26 @@ export default function Login() {
             </View>
 
             <View className="m-8 flex-1">
-              <Text className="text-sm font-bold text-[#323232] mt-8 text-left">
+              <Text className="text-sm font-bold text-[#323232] dark:text-white mt-8 text-left">
                 E-MAIL
               </Text>
               <TextInput
-                className="bg-white rounded-[8] px-4 py-4 mt-2 shadow-sm shadow-black"
+                className="bg-white dark:bg-gray-800 rounded-[8] px-4 py-4 mt-2 shadow-sm shadow-black  dark:text-white"
                 value={email}
                 onChangeText={setEmail}
-                cursorColor="#323232"
+                cursorColor={isDark ? "#ffffff" : "#323232"}
                 keyboardType="email-address"
               ></TextInput>
-              <Text className="text-sm font-bold text-[#323232] mt-8 text-left">
+              <Text className="text-sm font-bold text-[#323232] dark:text-white mt-8 text-left">
                 SENHA
               </Text>
-              <View className="bg-white rounded-[8] mt-2 shadow-sm shadow-black flex-row items-center px-4">
+              <View className="bg-white dark:bg-gray-800 rounded-[8] mt-2 shadow-sm shadow- dark:text-white flex-row items-center px-4">
                 <TextInput
-                  className="flex-1 py-4 pr-2"
+                  className="flex-1 py-4 pr-2 dark:text-white"
                   value={password}
                   onChangeText={setPassword}
                   secureTextEntry={!showPassword}
-                  cursorColor="#323232"
+                  cursorColor={isDark ? "#ffffff" : "#323232"}
                   keyboardType="default"
                 />
                 <TouchableOpacity
@@ -105,12 +106,12 @@ export default function Login() {
                   <Ionicons
                     name={showPassword ? "eye" : "eye-off"}
                     size={20}
-                    color="#323232"
+                    color={isDark ? "#ffffff" : "#323232"}
                   />
                 </TouchableOpacity>
               </View>
               <TouchableOpacity className="mb-8">
-                <Text className="text-xs font-black text-[#323232] mt-2 text-right underline">
+                <Text className="text-xs font-black text-[#323232] dark:text-white mt-2 text-right underline">
                   ESQUECEU A SENHA?
                 </Text>
               </TouchableOpacity>
@@ -121,11 +122,11 @@ export default function Login() {
                 onPress={handleLogin}
               />
               <View className="mt-2 flex-row items-center justify-center">
-                <Text className="text-xs text-[#323232] font-bold">
+                <Text className="text-xs text-[#323232] dark:text-white font-bold">
                   Não tem Login?
                 </Text>
                 <TouchableOpacity onPress={() => router.push("/register")}>
-                  <Text className="ml-1 text-xs underline font-black text-[#323232] items-center">
+                  <Text className="ml-1 text-xs underline font-black text-[#323232] dark:text-white items-center">
                     Cadastre-se
                   </Text>
                 </TouchableOpacity>
