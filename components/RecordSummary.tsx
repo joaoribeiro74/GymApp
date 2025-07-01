@@ -86,7 +86,7 @@ export default function RecordSummary({ logs, templates }: Props) {
       </Text>
 
       {topRecords.length === 0 ? (
-        <View className="bg- dark:bg-gray-800 p-4 rounded-xl shadow-sm shadow-black items-center justify-center">
+        <View className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm shadow-black items-center justify-center">
           <Text className="text-sm font-bold text-[#323232] dark:text-white mb-2">
             Nenhum recorde encontrado ainda.
           </Text>

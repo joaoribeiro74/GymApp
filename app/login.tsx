@@ -26,7 +26,7 @@ export default function Login() {
   const router = useRouter();
   const { isDark } = useTheme();
 
-  const [email, setEmail] = useState("jvcarvalho09@hotmail.com");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
@@ -87,6 +87,7 @@ export default function Login() {
                 onChangeText={setEmail}
                 cursorColor={isDark ? "#ffffff" : "#323232"}
                 keyboardType="email-address"
+                autoCapitalize="none"
               ></TextInput>
               <Text className="text-sm font-bold text-[#323232] dark:text-white mt-8 text-left">
                 SENHA

@@ -223,10 +223,10 @@ Esta parte do documento detalha o planejamento de desenvolvimento do aplicativo 
 **Objetivo:** Garantir estabilidade, performance e visual final.
 
 ### Tarefas:
-- [ ] Revisar e testar todas as telas
-- [ ] Corrigir bugs e comportamentos inesperados
-- [ ] Testar fluxo completo do usuário
-- [ ] Atualizar checklist de funcionalidades no `README.md`
+- [x] Revisar e testar todas as telas
+- [x] Corrigir bugs e comportamentos inesperados
+- [x] Testar fluxo completo do usuário
+- [x] Atualizar checklist de funcionalidades no `README.md`
 
 ---
 
@@ -235,17 +235,6 @@ Esta parte do documento detalha o planejamento de desenvolvimento do aplicativo 
 - A cada sprint serão feitas *commits* diários para acompanhar a evolução.
 - Após cada sprint, será atualizado o progresso no `README.md` principal.
 - Alterações no escopo serão documentadas e reorganizadas em sprints futuras se necessário.
-
----
-
-## 🧩 Sprints Adicionais (funcionalidades extras)
-
-Estas sprints representam melhorias que **não fazem parte do escopo mínimo obrigatório**, mas podem ser implementadas caso as funcionalidades prioritárias sejam concluídas com sucesso e dentro do prazo.
-
-### 📅 Sprint Extra 1: Funcionalidades adicionais
-**Duração:** 2 semanas  
-**Objetivo:** Implementar funcionalidades adicionais
-...
 
 ---
 

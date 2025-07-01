@@ -12,6 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import Toast from "react-native-toast-message";
 import toastConfig from "../CustomToast";
+import MaskInput from "react-native-mask-input";
 
 type EditProfileModalProps = {
   visible: boolean;
@@ -44,8 +45,20 @@ export default function EditProfileModal({
   onSave,
   isDark,
 }: EditProfileModalProps) {
+  const mask = [
+    /\d/, // 1º dígito
+    ".", // ponto fixo
+    /\d?/, // 2º dígito opcional
+    /\d?/, // 3º dígito opcional
+  ];
+
   return (
-    <Modal visible={visible} animationType="slide" transparent onRequestClose={onClose}>
+    <Modal
+      visible={visible}
+      animationType="slide"
+      transparent
+      onRequestClose={onClose}
+    >
       <SafeAreaView className="flex-1 bg-white dark:bg-gray-800 px-4">
         <ScrollView showsVerticalScrollIndicator={false}>
           <View className="flex-row items-center justify-between pt-4 pb-2">
@@ -63,25 +76,42 @@ export default function EditProfileModal({
           </View>
 
           <View className="items-center mb-6">
-            <TouchableOpacity onPress={pickImage} accessibilityLabel="Selecionar imagem de perfil" accessibilityHint="Abre a galeria para selecionar uma nova imagem de perfil">
+            <TouchableOpacity
+              onPress={pickImage}
+              accessibilityLabel="Selecionar imagem de perfil"
+              accessibilityHint="Abre a galeria para selecionar uma nova imagem de perfil"
+            >
               {avatar ? (
-                <Image source={{ uri: avatar }} className="w-[100px] h-[100px] rounded-full" />
+                <Image
+                  source={{ uri: avatar }}
+                  className="w-[100px] h-[100px] rounded-full"
+                />
               ) : (
                 <View className="w-[100px] h-[100px] rounded-full justify-center items-center">
-                  <FontAwesome name="user-circle-o" size={100} color={isDark ? "#ffffff" : "#323232"} />
+                  <FontAwesome
+                    name="user-circle-o"
+                    size={100}
+                    color={isDark ? "#ffffff" : "#323232"}
+                  />
                 </View>
               )}
             </TouchableOpacity>
-            <Text className="text-sm text-[#323232] dark:text-white mt-2">Toque para alterar a foto</Text>
+            <Text className="text-sm text-[#323232] dark:text-white mt-2">
+              Toque para alterar a foto
+            </Text>
             {avatar && (
               <TouchableOpacity onPress={() => setAvatar("")}>
-                <Text className="text-xs text-[#E10000] mt-2">Remover foto</Text>
+                <Text className="text-xs text-[#E10000] mt-2">
+                  Remover foto
+                </Text>
               </TouchableOpacity>
             )}
           </View>
 
           <View className="pt-6 pb-2">
-            <Text className="text-sm font-bold text-[#323232] dark:text-white">OBJETIVO (Opcional)</Text>
+            <Text className="text-sm font-bold text-[#323232] dark:text-white">
+              OBJETIVO (Opcional)
+            </Text>
             <TextInput
               value={goal}
               onChangeText={setGoal}
@@ -92,7 +122,9 @@ export default function EditProfileModal({
           </View>
 
           <View className="pt-2 pb-2">
-            <Text className="text-sm font-bold text-[#323232] dark:text-white">PESO ATUAL (KG)</Text>
+            <Text className="text-sm font-bold text-[#323232] dark:text-white">
+              PESO ATUAL (KG)
+            </Text>
             <TextInput
               value={weight}
               onChangeText={setWeight}
@@ -103,8 +135,11 @@ export default function EditProfileModal({
           </View>
 
           <View className="pt-2 pb-2">
-            <Text className="text-sm font-bold text-[#323232] dark:text-white">ALTURA (M)</Text>
-            <TextInput
+            <Text className="text-sm font-bold text-[#323232] dark:text-white">
+              ALTURA (M)
+            </Text>
+            <MaskInput
+              mask={mask}
               value={height}
               onChangeText={setHeight}
               cursorColor={isDark ? "#ffffff" : "#323232"}

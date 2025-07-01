@@ -98,6 +98,7 @@ export default function Register() {
                 onChangeText={setEmail}
                 keyboardType="email-address"
                 cursorColor={isDark ? "#ffffff" : "#323232"}
+                autoCapitalize="none"
               />
               <Text className="text-sm font-bold text-[#323232] dark:text-white mt-8 text-left">
                 NOME DE USUÁRIO
@@ -108,6 +109,7 @@ export default function Register() {
                 onChangeText={setUsername}
                 cursorColor={isDark ? "#ffffff" : "#323232"}
                 keyboardType="default"
+                autoCapitalize="none"
               />
               <Text className="text-sm font-bold text-[#323232] dark:text-white mt-8 text-left">
                 SENHA
