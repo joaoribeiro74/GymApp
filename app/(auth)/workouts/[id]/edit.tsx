@@ -1,24 +1,21 @@
-import { View, Text, Modal, TouchableOpacity } from "react-native";
+import { View, Text } from "react-native";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import { FlatList, TextInput } from "react-native-gesture-handler";
+import { FlatList } from "react-native-gesture-handler";
 import SearchInput from "../../../../components/SearchInput";
 import AddExerciseCard from "../../../../components/AddExerciseCard";
 import useCollection from "../../../../firebase/hooks/useCollection";
 import useUserWorkouts from "../../../../hooks/useUserWorkouts";
-import { useLocalSearchParams, useNavigation } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import AddExerciseBar from "../../../../components/ExerciseBar";
 import Toast from "react-native-toast-message";
-import toastConfig from "../../../../components/CustomToast";
-import { Ionicons } from "@expo/vector-icons";
 import { doc, updateDoc } from "firebase/firestore";
 import useAuth from "../../../../firebase/hooks/useAuth";
 import useFirebase from "../../../../firebase/hooks/useFirebase";
 import * as NavigationBar from "expo-navigation-bar";
-import { useTheme } from "../../../../context/ThemeContext";
 import EditWorkoutModal from "../../../../components/Modals/EditWorkoutModal";
 
 type Exercise = {
@@ -35,11 +32,9 @@ export default function edit() {
   const { workouts } = useUserWorkouts();
   const { id } = useLocalSearchParams();
   const [saving, setSaving] = useState(false);
-  const { isDark } = useTheme();
 
   const { user } = useAuth();
   const { db } = useFirebase();
-  const navigation = useNavigation<any>();
   const insets = useSafeAreaInsets();
 
   const workout = useMemo(
@@ -157,7 +152,7 @@ export default function edit() {
       setTimeout(() => {
         setModalVisible(false);
         setSaving(false);
-        navigation.navigate("workouts/home");
+        router.push("workouts/home");
       }, 2000);
     } catch (error) {
       Toast.show({
@@ -170,7 +165,7 @@ export default function edit() {
       });
       setSaving(false);
     }
-  }, [workoutName, addedExercises, db, user, navigation, id]);
+  }, [workoutName, addedExercises, db, user, id]);
 
   return (
     <SafeAreaView className="flex-1 dark:bg-gray-900">
