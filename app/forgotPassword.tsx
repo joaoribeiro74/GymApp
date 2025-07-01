@@ -1,11 +1,12 @@
 // forgotPassword.tsx (exemplo simples)
 import { View, TextInput, Text, TouchableOpacity, Alert } from "react-native";
 import { useEffect, useRef, useState } from "react";
+import useAuth from "../firebase/hooks/useAuth";
 import Toast from "react-native-toast-message";
-import { useTheme } from "../../../context/ThemeContext";
-import useAuth from "../../../firebase/hooks/useAuth";
+import StyledButton from "../components/StyledButton";
+import { useTheme } from "../context/ThemeContext";
 
-export default function ResetPassword() {
+export default function ForgotPassword() {
   const { resetPassword } = useAuth();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
