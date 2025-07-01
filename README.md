@@ -88,13 +88,14 @@ Criar o arquivo firebaseConfig.ts e colocar as credenciais
   - [x] Peso atual (editável)
   - [x] Objetivo: perder peso, ganhar massa, etc
   - [x] Botão de editar perfil
-- [ ] Tela de Configurações
-  - [ ] Tema (claro/escuro)
-  - [ ] Deslogar
-  - [ ] Sobre o app / Versão
-- [ ] Mensagens de Erro ou Feedback
-  - [ ] Exibição de mensagens de erro
-  - [ ] Feedbacks: "Treino salvo com sucesso", "Senha incorreta", etc
+- [x] Tela de Configurações
+  - [x] Alterar nome de usuário
+  - [x] Redefinir senha
+  - [x] Tema (claro/escuro)
+  - [x] Versão
+- [x] Mensagens de Erro ou Feedback
+  - [x] Exibição de mensagens de erro
+  - [x] Feedbacks: "Treino salvo com sucesso", "Senha incorreta", etc
 
 ### 🌟 Funcionalidades adicionais (possíveis incrementos)
 
@@ -208,10 +209,11 @@ Esta parte do documento detalha o planejamento de desenvolvimento do aplicativo 
   - [x] Peso atual (editável)
   - [x] Objetivo: perder peso, ganhar massa, etc
   - [x] Botão de editar perfil
-- [ ] Tela de Configurações
-  - [ ] Tema (claro/escuro)
-  - [ ] Deslogar
-  - [ ] Sobre o app / Versão
+- [x] Tela de Configurações
+  - [x] Alterar nome de usuário
+  - [x] Redefinir senha
+  - [x] Tema (claro/escuro)
+  - [x] Versão
 
 ---
 
