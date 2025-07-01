@@ -17,14 +17,13 @@ import Loading from "../../../components/Loading";
 import { doc, updateDoc } from "firebase/firestore";
 import useFirebase from "../../../firebase/hooks/useFirebase";
 import Toast from "react-native-toast-message";
-import { useNavigation } from "expo-router";
+import { router } from "expo-router";
 import { useTheme } from "../../../context/ThemeContext";
 
 export default function EditUsername() {
   const { user, isUsernameTaken } = useAuth();
   const { data, loading } = useDocument<User>("users", user?.uid ?? "");
   const { db } = useFirebase();
-  const navigation = useNavigation<any>();
   const { isDark } = useTheme();
 
   const [newUsername, setNewUsername] = useState("");
@@ -112,8 +111,15 @@ export default function EditUsername() {
   }, [newUsername, currentUsername]);
 
   const handleSave = async () => {
-    if (!hasChanged || isAvailable === false) return;
+    if (!hasChanged || isAvailable === false || checking) return;
     Keyboard.dismiss();
+
+    const taken = await isUsernameTaken(newUsername.trim());
+    if (taken) {
+      setIsAvailable(false);
+      setErrorMessage("Este nome de usuário já está sendo usado.");
+      return;
+    }4
 
     try {
       const userRef = doc(db!, "users", user?.uid!);
@@ -123,13 +129,13 @@ export default function EditUsername() {
         type: "customSuccess",
         text1: "Nome de usuário atualizado!",
         position: "top",
-        visibilityTime: 3000,
+        visibilityTime: 2000,
         autoHide: true,
         swipeable: true,
       });
       setTimeout(() => {
-        navigation.navigate("settings/home");
-      }, 3000);
+        router.push("settings/home");
+      }, 2000);
     } catch (error) {
       Toast.show({
         type: "customError",
@@ -160,7 +166,9 @@ export default function EditUsername() {
           className="bg-white dark:bg-gray-800 text-gray-500 font-bold px-4 py-3 rounded-xl mb-6 shadow-sm shadow-black"
         />
 
-        <Text className="text-lg font-black mb-1 text-[#323232] dark:text-white">NOVO</Text>
+        <Text className="text-lg font-black mb-1 text-[#323232] dark:text-white">
+          NOVO
+        </Text>
         <View
           className={`flex-row items-center bg-white dark:bg-gray-800 rounded-xl px-4 mb-2 shadow-sm shadow-black border ${
             showError ? "border-[#E10000]" : "border-transparent"
@@ -189,7 +197,7 @@ export default function EditUsername() {
         <View className="flex-1 justify-end mt-auto">
           <TouchableOpacity
             onPress={handleSave}
-            disabled={!hasChanged || isAvailable === false}
+            disabled={!hasChanged || isAvailable === false || checking}
             className={`py-3 rounded-xl mb-10 ${
               !hasChanged || isAvailable === false
                 ? "bg-gray-300 dark:bg-slate-400"

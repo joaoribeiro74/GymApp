@@ -2,12 +2,6 @@ import {
   View,
   Text,
   FlatList,
-  Modal,
-  TouchableOpacity,
-  TextInput,
-  StatusBar,
-  Platform,
-  BackHandler,
 } from "react-native";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
@@ -18,15 +12,13 @@ import SearchInput from "../../../components/SearchInput";
 import AddExerciseCard from "../../../components/AddExerciseCard";
 import * as NavigationBar from "expo-navigation-bar";
 import AddExerciseBar from "../../../components/ExerciseBar";
-import { Ionicons } from "@expo/vector-icons";
 import Loading from "../../../components/Loading";
 import useCollection from "../../../firebase/hooks/useCollection";
 import Toast from "react-native-toast-message";
-import toastConfig from "../../../components/CustomToast";
 import useAuth from "../../../firebase/hooks/useAuth";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import useFirebase from "../../../firebase/hooks/useFirebase";
-import { useNavigation } from "expo-router";
+import { router } from "expo-router";
 import { useTheme } from "../../../context/ThemeContext";
 import CreateWorkoutModal from "../../../components/Modals/CreateWorkoutModal";
 
@@ -55,7 +47,6 @@ export default function create() {
 
   const { user } = useAuth();
   const { db } = useFirebase();
-  const navigation = useNavigation<any>();
   const insets = useSafeAreaInsets();
   const { isDark } = useTheme();
 
@@ -197,7 +188,7 @@ export default function create() {
         setAddedExercises([]);
         setSelectedDay([]);
         setSaving(false);
-        navigation.navigate("workouts/home");
+        router.push("workouts/home");
       }, 2000);
     } catch (error) {
       Toast.show({
@@ -209,7 +200,7 @@ export default function create() {
         swipeable: true,
       });
     }
-  }, [workoutName, selectedDay, addedExercises, db, user, navigation]);
+  }, [workoutName, selectedDay, addedExercises, db, user]);
 
   if (loading) return <Loading />;
 

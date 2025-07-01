@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, ListRenderItem } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "expo-router";
+import { router } from "expo-router";
 import { FlatList } from "react-native-gesture-handler";
 import { useTheme } from "../../../context/ThemeContext";
 interface SettingsOption {
@@ -36,7 +36,6 @@ const options: SettingsOption[] = [
   },
 ];
 export default function HomeSettings() {
-  const navigation = useNavigation();
   const { isDark } = useTheme();
 
   const renderItem: ListRenderItem<SettingsOption> = ({ item, index }) => {
@@ -45,7 +44,7 @@ export default function HomeSettings() {
     return (
       <View className="flex-1">
         <TouchableOpacity
-          onPress={() => navigation.navigate(item.screen as never)}
+          onPress={() => router.push(item.screen as never)}
           className="flex-row dark:bg-gray-800 items-center px-4 py-6 gap-4"
         >
           <Ionicons name={item.icon} size={24} color={isDark ? "#ffffff" : "#323232"}/>

@@ -1,9 +1,7 @@
-import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { ThemeProvider, useTheme } from "../../../context/ThemeContext";
-import { colorScheme } from "nativewind";
-import { useNavigation } from "expo-router";
+import { useTheme } from "../../../context/ThemeContext";
 import Loading from "../../../components/Loading";
 
 export default function ThemeSettings() {
@@ -12,7 +10,6 @@ export default function ThemeSettings() {
   const [isChangingTheme, setIsChangingTheme] = useState(false);
 
   const handleThemeChange = (toDark: boolean) => {
-    // Evita mudança desnecessária
     if ((toDark && isDark) || (!toDark && !isDark)) return;
 
     setIsChangingTheme(true);
@@ -20,7 +17,7 @@ export default function ThemeSettings() {
 
     setTimeout(() => {
       setIsChangingTheme(false);
-    }, 1000); // ajuste se quiser
+    }, 1000); 
   };
 
   if (isChangingTheme) {

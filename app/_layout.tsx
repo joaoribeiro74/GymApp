@@ -39,6 +39,25 @@ function AppContent() {
           }}
         />
         <Stack.Screen
+          name="forgotPassword"
+          options={{
+            title: "RECUPERAR SENHA",
+            statusBarHidden: false,
+            statusBarBackgroundColor: statusBarBgColor,
+            statusBarStyle: statusBarStyle,
+            headerTitleAlign: "center",
+            headerTitleStyle: {
+              color: headerTitleColor,
+              fontWeight: "bold",
+              fontSize: 18,
+            },
+            headerStyle: {
+              backgroundColor: bgClass,
+            },
+            headerTintColor: headerTintColor,
+          }}
+        />
+        <Stack.Screen
           name="register"
           options={{
             title: "CADASTRO",
