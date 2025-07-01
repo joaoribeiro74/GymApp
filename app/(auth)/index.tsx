@@ -28,16 +28,16 @@ export default function Index() {
     <SafeAreaView className="flex-1 dark:bg-gray-900">
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className="px-4 pb-4 dark:bg-gray-900">
-          <Text className="text-2xl font-bold text-[#323232]">
+          <Text className="text-2xl font-bold text-[#323232] dark:text-white">
             OLÁ{data?.username ? `, ${data.username.toUpperCase()}` : ""}
           </Text>
-          <Text className="text-md font-bold text-[#323232] mb-6">
+          <Text className="text-md font-bold text-[#323232] mb-6 dark:text-white">
             O QUE VOCÊ GOSTARIA DE FAZER HOJE?
           </Text>
 
           <TodayWorkout />
 
-          <Text className="text-4xl font-bold text-[#323232] mt-8 mb-4">
+          <Text className="text-4xl font-bold text-[#323232] dark:text-white mt-8 mb-4">
             PROGRESSO
           </Text>
 

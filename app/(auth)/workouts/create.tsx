@@ -27,6 +27,8 @@ import useAuth from "../../../firebase/hooks/useAuth";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import useFirebase from "../../../firebase/hooks/useFirebase";
 import { useNavigation } from "expo-router";
+import { useTheme } from "../../../context/ThemeContext";
+import CreateWorkoutModal from "../../../components/Modals/CreateWorkoutModal";
 
 type Exercise = {
   id: string;
@@ -55,6 +57,7 @@ export default function create() {
   const { db } = useFirebase();
   const navigation = useNavigation<any>();
   const insets = useSafeAreaInsets();
+  const { isDark } = useTheme();
 
   const { data: exercises, loading } = useCollection("exercises", true) as {
     data: Exercise[];
@@ -183,7 +186,7 @@ export default function create() {
         type: "customSuccess",
         text1: "Treino criado com sucesso!",
         position: "top",
-        visibilityTime: 3000,
+        visibilityTime: 2000,
         autoHide: true,
         swipeable: true,
       });
@@ -195,7 +198,7 @@ export default function create() {
         setSelectedDay([]);
         setSaving(false);
         navigation.navigate("workouts/home");
-      }, 3000);
+      }, 2000);
     } catch (error) {
       Toast.show({
         type: "customError",
@@ -211,10 +214,10 @@ export default function create() {
   if (loading) return <Loading />;
 
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1 dark:bg-gray-900">
       <View className="flex-1 pb-8">
         <View className="px-4">
-          <Text className="text-md font-bold text-[#323232]">
+          <Text className="text-md font-bold text-[#323232] dark:text-white">
             BUSCAR EXERCÍCIOS
           </Text>
           <SearchInput value={search} onChangeText={setSearch} />
@@ -238,7 +241,7 @@ export default function create() {
             padding: 16,
           }}
           ListEmptyComponent={
-            <Text className="text-center text-md text-[#323232] font-bold mt-4">
+            <Text className="text-center text-md text-[#323232] dark:text-white font-bold mt-4">
               EXERCÍCIO NÃO ENCONTRADO.
             </Text>
           }
@@ -249,87 +252,18 @@ export default function create() {
         onPress={() => setModalVisible(true)}
         mode="view"
       />
-      <Modal visible={modalVisible} animationType="slide" transparent onRequestClose={() => setModalVisible(false)}>
-        <SafeAreaView className="flex-1 bg-[#ECEBEB] px-4">
-          <View className="flex-row items-center justify-between pt-4">
-            <TouchableOpacity onPress={() => setModalVisible(false)}>
-              <Ionicons name="chevron-down" size={30} color="#323232" />
-            </TouchableOpacity>
-            <Text className="font-black text-[#323232]">EXERCÍCIOS</Text>
-            <TouchableOpacity onPress={clearExercises}>
-              <Text className="font-bold text-[#E10000] text-sm">Limpar</Text>
-            </TouchableOpacity>
-          </View>
-          <View className="pt-6 pb-2">
-            <Text className="font-bold text-[#323232]">NOME DO TREINO</Text>
-            <TextInput
-              className="bg-white rounded-[8] py-4 mt-2 shadow-sm shadow-black font-bold px-4"
-              value={workoutName}
-              onChangeText={setWorkoutName}
-              cursorColor="#323232"
-            ></TextInput>
-          </View>
-          <View className="pt-2 pb-2">
-            <Text className="font-bold text-[#323232] pb-2">DIA DA SEMANA</Text>
-            <View className="flex-row flex-wrap justify-between">
-              {Object.entries(weekDays).map(([sigla]) => (
-                <TouchableOpacity
-                  key={sigla}
-                  onPress={() => toggleDaySelection(sigla)}
-                  className={`shadow-sm shadow-black rounded-[6] p-2 ${
-                    selectedDay.includes(sigla) ? "bg-[#323232]" : "bg-white"
-                  }`}
-                >
-                  <Text
-                    className={`font-bold ${
-                      selectedDay.includes(sigla)
-                        ? "text-white"
-                        : "text-[#323232]"
-                    }`}
-                  >
-                    {sigla}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </View>
-
-          <View className="flex-1 pt-4 pb-4">
-            <Text className="font-bold text-[#323232] pb-2">
-              ORDEM DOS EXERCÍCIOS
-            </Text>
-            <FlatList
-              data={addedExercises}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item }) => (
-                <AddExerciseCard
-                  name={item.exercise.toUpperCase()}
-                  category={item.category.toUpperCase()}
-                  mode="edit"
-                  onDelete={() =>
-                    setAddedExercises((prev) =>
-                      prev.filter((ex) => ex.id !== item.id)
-                    )
-                  }
-                />
-              )}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{ paddingBottom: insets.bottom + 10 }}
-              keyboardShouldPersistTaps="handled"
-            />
-          </View>
-          <View className="bottom-0 left-0 right-0 absolute">
-            <AddExerciseBar
-              count={addedExercises.length}
-              mode="create"
-              onPress={() => {
-                handleCreateWorkout();
-              }}
-            />
-          </View>
-        </SafeAreaView>
-        <Toast config={toastConfig} />
-      </Modal>
+      <CreateWorkoutModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        workoutName={workoutName}
+        onChangeWorkoutName={setWorkoutName}
+        addedExercises={addedExercises}
+        setAddedExercises={setAddedExercises}
+        selectedDay={selectedDay}
+        toggleDaySelection={toggleDaySelection}
+        clearExercises={clearExercises}
+        handleCreateWorkout={handleCreateWorkout}
+      />
     </SafeAreaView>
   );
 }

@@ -9,6 +9,7 @@ import { AntDesign, FontAwesome6, MaterialIcons } from "@expo/vector-icons";
 import { router, useRouter } from "expo-router";
 import { Calendar, LocaleConfig } from "react-native-calendars";
 import { getAuth } from "firebase/auth";
+import { useTheme } from "../../../context/ThemeContext";
 
 type CalendarDay = {
   dateString: string;
@@ -80,17 +81,20 @@ function formatDateToLocalISO(date: Date) {
 }
 
 function formatYearMonth(date: Date) {
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+    2,
+    "0"
+  )}`;
 }
 
-function getMarkedDates(logs: WorkoutLog[]) {
+function getMarkedDates(logs: WorkoutLog[], isDark: boolean) {
   const marks: Record<string, any> = {};
   logs.forEach((log) => {
     const date = new Date(log.date);
     const key = formatDateToLocalISO(date);
     marks[key] = {
       selected: true,
-      selectedColor: "#323232",
+      selectedColor: isDark ? "#4ADE80" : "#323232",
       marked: true,
       dotColor: "#fff",
       textColor: "#fff",
@@ -130,11 +134,14 @@ export default function HomeActivity() {
   const auth = getAuth();
   const { workoutLogs, loading } = useUserWorkouts();
   const last30DaysLogs = filterLast30Days(workoutLogs);
- const [currentMonth, setCurrentMonth] = useState<string>(formatYearMonth(new Date()));
+  const [currentMonth, setCurrentMonth] = useState<string>(
+    formatYearMonth(new Date())
+  );
   const creationTime = auth.currentUser?.metadata?.creationTime;
   const creationDate = creationTime ? new Date(creationTime) : null;
+  const { isDark } = useTheme();
 
-  const markedDates = useMemo(() => getMarkedDates(workoutLogs), [workoutLogs]);
+  const markedDates = useMemo(() => getMarkedDates(workoutLogs, isDark), [workoutLogs, isDark]);
   const currentMonthLogs = useMemo(
     () => getCurrentMonthLogs(workoutLogs),
     [workoutLogs]
@@ -165,14 +172,14 @@ export default function HomeActivity() {
   }
 
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1 dark:bg-gray-900">
       {last30DaysLogs.length === 0 ? (
         <View className="flex-1 items-center justify-center">
-          <View className="bg-white p-4 rounded-xl shadow-sm shadow-black items-center justify-center mx-4">
-            <Text className="text-center text-md text-[#323232] font-bold mt-4 mb-2">
+          <View className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm shadow-black items-center justify-center mx-4">
+            <Text className="text-center text-md text-[#323232] dark:text-white font-bold mt-4 mb-2">
               Nenhum treino nos últimos 30 dias.
             </Text>
-            <Text className="text-xs text-[#666] text-center mb-4">
+            <Text className="text-xs text-[#666] dark:text-gray-400 text-center mb-4">
               Crie e faça um treino para ver ele aqui!
             </Text>
             <StyledButton
@@ -191,9 +198,12 @@ export default function HomeActivity() {
       ) : (
         <ScrollView showsVerticalScrollIndicator={false}>
           <View className="px-4 pb-4">
-            <Text className="text-md font-black mb-2">TREINOS FEITOS</Text>
+            <Text className="text-md font-black mb-2 dark:text-white">
+              TREINOS FEITOS
+            </Text>
             {/* Calendário com dias marcados */}
             <Calendar
+              key={isDark ? "dark" : "light"} // 🔑 força remontagem total
               onMonthChange={(month) =>
                 setCurrentMonth(month.dateString.substring(0, 7))
               }
@@ -204,17 +214,20 @@ export default function HomeActivity() {
               theme={{
                 selectedDayBackgroundColor: "#1DAA2D",
                 todayTextColor: "#1DAA2D",
-                arrowColor: "#323232",
-                monthTextColor: "#000",
-                dayTextColor: "#000",
+                arrowColor: isDark ? "#ffffff" : "#323232",
+                monthTextColor: isDark ? "#ffffff" : "#000000",
+                dayTextColor: isDark ? "#E5E5E5" : "#000000",
+                textSectionTitleColor: isDark ? "#D1D5DB" : "#7B7B7B",
                 textDayFontWeight: "700",
                 textMonthFontWeight: "bold",
                 textDayHeaderFontWeight: "700",
+                calendarBackground: isDark ? "#1F2937" : "#ffffff",
+                textDisabledColor: isDark ? "#6B7280" : "#C0C0C0",
               }}
               style={{
                 borderRadius: 8,
                 marginBottom: 16,
-                backgroundColor: "#fff",
+                backgroundColor: isDark ? "#1F2937" : "#ffffff",
                 shadowColor: "#000",
                 shadowOffset: { width: 0, height: 1 },
                 shadowOpacity: 0.18,
@@ -223,25 +236,33 @@ export default function HomeActivity() {
               }}
             />
 
-            <Text className="text-md font-black mt-4 mb-2">
+            <Text className="text-md font-black mt-4 mb-2 dark:text-white">
               ATIVIDADE DO MÊS
             </Text>
-            <View className="bg-white p-4 rounded-xl shadow-sm shadow-black mb-4">
+            <View className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm shadow-black mb-4">
               <View className="flex-row items-center gap-2 mb-4">
-                <FontAwesome6 name="dumbbell" size={16} color="#323232" />
-                <Text className="text-sm text-black font-black">
+                <FontAwesome6
+                  name="dumbbell"
+                  size={16}
+                  color={isDark ? "#ffffff" : "#323232"}
+                />
+                <Text className="text-sm text-black font-black dark:text-white">
                   TREINOS: {currentMonthLogs.length}
                 </Text>
               </View>
               <View className="flex-row items-center gap-2">
-                <FontAwesome6 name="chart-column" size={20} color="#323232" />
-                <Text className="text-sm text-black font-black">
+                <FontAwesome6
+                  name="chart-column"
+                  size={20}
+                  color={isDark ? "#ffffff" : "#323232"}
+                />
+                <Text className="text-sm text-black font-black dark:text-white">
                   MÉDIA POR SEMANA: {average}
                 </Text>
               </View>
             </View>
 
-            <Text className="text-md font-black mt-4 mb-2">
+            <Text className="text-md font-black mt-4 mb-2 dark:text-white">
               HISTÓRICO DE TREINOS (ÚLTIMOS 30 DIAS)
             </Text>
             <View>

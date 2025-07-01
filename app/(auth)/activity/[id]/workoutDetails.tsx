@@ -16,12 +16,12 @@ export default function workoutDetails() {
 
   if (!workoutLog) {
     return (
-      <View className="flex-1 items-center justify-center">
+      <View className="flex-1 dark:bg-gray-800 items-center justify-center">
         <View className="bg-white p-4 rounded-xl shadow-sm shadow-black items-center justify-center mx-4">
-          <Text className="text-center text-md text-[#323232] font-bold mt-4 mb-2">
+          <Text className="text-center text-md text-[#323232] dark:text-white font-bold mt-4 mb-2">
             Treino não encontrado.
           </Text>
-          <Text className="text-xs text-[#666] text-center mb-4">
+          <Text className="text-xs text-[#666] text-center mb-4 dark:text-gray-400">
             Crie e faça um treino para ver ele aqui!
           </Text>
         </View>
@@ -29,7 +29,7 @@ export default function workoutDetails() {
     );
   }
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1 dark:bg-gray-900">
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className="px-4 pb-4">
           <ViewExerciseCard workoutLog={workoutLog} defaultExpanded={true} />

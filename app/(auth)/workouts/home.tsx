@@ -28,15 +28,15 @@ export default function HomeWorkouts() {
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <SafeAreaView className="flex-1">
+      <SafeAreaView className="flex-1 dark:bg-gray-900">
         <View className="pb-8 flex-1">
           {sortedWorkouts.length === 0 ? (
             <View className="flex-1 items-center justify-center">
-              <View className="bg-white p-4 rounded-xl shadow-sm shadow-black items-center justify-center">
-                <Text className="text-center text-md text-[#323232] font-bold mt-4 mb-2">
+              <View className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm shadow-black items-center justify-center">
+                <Text className="text-center text-md text-[#323232] dark:text-white font-bold mt-4 mb-2">
                   Nenhum treino encontrado.
                 </Text>
-                <Text className="text-xs text-[#666] text-center mb-4">
+                <Text className="text-xs text-[#666] dark:text-gray-400 text-center mb-4">
                   Crie um novo treino para ver eles aqui!
                 </Text>
                 <StyledButton

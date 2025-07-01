@@ -5,6 +5,7 @@ import { weightStats } from "../mocks/data";
 import useAuth from "../firebase/hooks/useAuth";
 import useDocument from "../firebase/hooks/useDocument";
 import User from "../types/User";
+import { useTheme } from "../context/ThemeContext";
 
 
 type ChartTooltipItem = {
@@ -16,6 +17,7 @@ type ChartTooltipItem = {
 export default function ProgressWeight() {
   const { user } = useAuth();
   const { data } = useDocument<User>("users", user?.uid ?? "");
+  const { isDark } = useTheme();
 
   const weightStats = useMemo(() => {
     if (!data?.weightHistory) return [];
@@ -26,11 +28,11 @@ export default function ProgressWeight() {
 
   if (weightStats.length === 0) {
     return (
-      <View className="bg-white p-4 rounded-xl shadow-sm shadow-black items-center justify-center mb-4">
-        <Text className="text-sm font-bold text-[#323232] mb-2">
+      <View className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm shadow-black items-center justify-center mb-4">
+        <Text className="text-sm font-bold text-[#323232] dark:text-white mb-2">
           Nenhum peso registrado ainda.
         </Text>
-        <Text className="text-xs text-[#666] font-normal text-center mb-2">
+        <Text className="text-xs text-[#666] dark:text-gray-400 font-normal text-center mb-2">
           Registre seu peso corporal na tela de perfil para acompanhar sua evolução aqui!
         </Text>
       </View>
@@ -46,7 +48,7 @@ export default function ProgressWeight() {
       month: "2-digit",
       year: "2-digit",
     }),
-    frontColor: item.weight === maxValue ? "#1DAA2D" : "#323232",
+    frontColor: item.weight === maxValue ? "#1DAA2D" : isDark ? "#d9d9d9" : "#323232",
   }));
   const stepSize = 20;
   const adjustedMaxValue = Math.ceil(maxValue / stepSize) * stepSize;
@@ -68,12 +70,12 @@ export default function ProgressWeight() {
 
   return (
     <View
-      className="bg-white rounded-[10] p-4 mb-8 shadow-sm shadow-black"
+      className="bg-white dark:bg-gray-800 rounded-[10] p-4 mb-8 shadow-sm shadow-black"
     >
-      <Text className="text-left font-bold text-[#7B7B7B] text-sm mb-1">
+      <Text className="text-left font-bold text-[#7B7B7B] dark:text-gray-400 text-sm mb-1">
         {dateRange}
       </Text>
-      <Text className="text-left font-bold text-[#323232] text-lg mb-4">
+      <Text className="text-left font-bold text-[#323232] dark:text-white text-lg mb-4">
         PESO CORPORAL
       </Text>
 
@@ -86,7 +88,8 @@ export default function ProgressWeight() {
           yAxisColor={"#E5E5E5"}
           xAxisThickness={1}
           xAxisColor="#E5E5E5"
-          xAxisLabelTextStyle={{ color: "#323232", fontSize: 10 }}
+          yAxisTextStyle={{ color: isDark ? "#d9d9d9" : "#323232", fontSize: 12 }}
+          xAxisLabelTextStyle={{ color: isDark ? "#d9d9d9" : "#323232", fontSize: 10 }}
           initialSpacing={20}
           spacing={25}
           maxValue={adjustedMaxValue}
@@ -101,7 +104,7 @@ export default function ProgressWeight() {
             return (
               <Text
                 style={{
-                  color: isMax ? "#1DAA2D" : "#323232",
+                  color: isMax ? "#1DAA2D" : isDark ? "#ffffff" : "#323232",
                   fontWeight: "bold",
                   fontSize: 10,
                 }}

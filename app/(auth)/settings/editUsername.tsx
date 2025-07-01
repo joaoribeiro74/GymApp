@@ -18,12 +18,14 @@ import { doc, updateDoc } from "firebase/firestore";
 import useFirebase from "../../../firebase/hooks/useFirebase";
 import Toast from "react-native-toast-message";
 import { useNavigation } from "expo-router";
+import { useTheme } from "../../../context/ThemeContext";
 
 export default function EditUsername() {
   const { user, isUsernameTaken } = useAuth();
   const { data, loading } = useDocument<User>("users", user?.uid ?? "");
   const { db } = useFirebase();
   const navigation = useNavigation<any>();
+  const { isDark } = useTheme();
 
   const [newUsername, setNewUsername] = useState("");
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
@@ -150,17 +152,17 @@ export default function EditUsername() {
       keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0} // ajuste conforme sua UI
       style={{ flex: 1 }}
     >
-      <SafeAreaView className="flex-1 p-6">
+      <SafeAreaView className="flex-1 p-6 dark:bg-gray-900">
         <Text className="text-lg font-black mb-1 text-gray-500">ATUAL</Text>
         <TextInput
           value={currentUsername}
           editable={false}
-          className="bg-white text-gray-500 font-bold px-4 py-3 rounded-xl mb-6 shadow-sm shadow-black"
+          className="bg-white dark:bg-gray-800 text-gray-500 font-bold px-4 py-3 rounded-xl mb-6 shadow-sm shadow-black"
         />
 
-        <Text className="text-lg font-black mb-1 text-[#323232]">NOVO</Text>
+        <Text className="text-lg font-black mb-1 text-[#323232] dark:text-white">NOVO</Text>
         <View
-          className={`flex-row items-center bg-white rounded-xl px-4 mb-2 shadow-sm shadow-black border ${
+          className={`flex-row items-center bg-white dark:bg-gray-800 rounded-xl px-4 mb-2 shadow-sm shadow-black border ${
             showError ? "border-[#E10000]" : "border-transparent"
           }`}
         >
@@ -169,8 +171,8 @@ export default function EditUsername() {
             ref={inputRef}
             value={newUsername}
             onChangeText={setNewUsername}
-            className="flex-1 text-base font-bold"
-            cursorColor={"#323232"}
+            className="flex-1 text-base font-bold dark:text-white"
+            cursorColor={isDark ? "#ffffff" : "#323232"}
           />
           {!showError && isAvailable === true && (
             <Ionicons name="checkmark-circle" size={24} color="green" />
@@ -190,8 +192,8 @@ export default function EditUsername() {
             disabled={!hasChanged || isAvailable === false}
             className={`py-3 rounded-xl mb-10 ${
               !hasChanged || isAvailable === false
-                ? "bg-gray-300"
-                : "bg-[#323232]"
+                ? "bg-gray-300 dark:bg-slate-400"
+                : "bg-[#323232] dark:bg-gray-800"
             }`}
           >
             <Text className="text-center text-white font-black">SALVAR</Text>

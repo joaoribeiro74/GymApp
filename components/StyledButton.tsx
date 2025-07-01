@@ -14,9 +14,9 @@ export default function StyledButton({
   variant = "default",
   ...props
 }: StyledButtonProps) {
-  const defaultStyle = "bg-[#323232] dark:bg-gray-800 px-20 py-4 rounded-[8]";
+  const defaultStyle = "bg-[#323232] dark:bg-gray-700 px-20 py-4 rounded-[8]";
   const customStyle =
-    "bg-[#323232] mx-auto w-full py-4 rounded-[8] flex-row items-center justify-center gap-2";
+    "bg-[#323232] dark:bg-gray-700 mx-auto w-full py-4 rounded-[8] flex-row items-center justify-center gap-2";
 
   return (
     <TouchableOpacity

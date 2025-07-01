@@ -22,12 +22,12 @@ export default function nextWorkout() {
 
   if (!nextWorkout) {
     return (
-      <View className="flex-1 items-center justify-center">
-        <View className="bg-white p-4 rounded-xl shadow-sm shadow-black items-center justify-center">
-          <Text className="text-center text-md text-[#323232] font-bold mt-4 mb-2">
+      <View className="flex-1 items-center justify-center dark:bg-gray-900">
+        <View className="bg-white p-4 rounded-xl shadow-sm dark:bg-gray-800 shadow-black items-center justify-center">
+          <Text className="text-center text-md text-[#323232] font-bold mt-4 mb-2 dark:text-white">
             Nenhum treino encontrado.
           </Text>
-          <Text className="text-xs text-[#666] text-center mb-4">
+          <Text className="text-xs text-[#666] text-center mb-4 dark:text-gray-400">
             Crie um novo treino para ver eles aqui!
           </Text>
           <StyledButton
@@ -50,7 +50,7 @@ export default function nextWorkout() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0} // ajuste conforme seu header/safe area
     >
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView className="dark:bg-gray-900" style={{ flex: 1 }}>
         <ScrollView
           contentContainerStyle={{
             flexGrow: 1,

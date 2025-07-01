@@ -8,11 +8,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import useAuth from "../../../firebase/hooks/useAuth";
+import { useTheme } from "../../../context/ThemeContext";
 
 export default function ResetPassword() {
   const { resetPassword } = useAuth();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const { isDark } = useTheme();
 
   const handleReset = async () => {
     if (!email) {
@@ -32,22 +34,22 @@ export default function ResetPassword() {
   };
 
   return (
-    <View className="flex-1 p-4">
+    <View className="flex-1 dark:bg-gray-900 p-4">
       <View className="pt-4">
-        <Text className="text-sm font-black mb-1 text-[#323232]">
+        <Text className="text-sm font-black mb-1 text-[#323232] dark:text-white">
           DIGITE SEU EMAIL PARA REDEFINIR A SENHA:
         </Text>
         <TextInput
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
-          cursorColor="#323232"
+          cursorColor={isDark ? "#ffffff" : "#323232"}
           autoCapitalize="none"
-          className="bg-white text-[#323232] font-bold px-4 py-3 rounded-xl mb-6 shadow-sm shadow-black"
+          className="bg-white dark:bg-gray-800 dark:text-white text-[#323232] font-bold px-4 py-3 rounded-xl mb-6 shadow-sm shadow-black"
         />
         <View className="justify-end">
           <TouchableOpacity
-            className="py-3 rounded-xl mb-10 bg-[#323232]"
+            className="py-3 rounded-xl mb-10 bg-[#323232] dark:bg-gray-800"
             onPress={handleReset}
             disabled={loading}
           >
