@@ -18,6 +18,8 @@ import { doc, updateDoc } from "firebase/firestore";
 import useAuth from "../../../../firebase/hooks/useAuth";
 import useFirebase from "../../../../firebase/hooks/useFirebase";
 import * as NavigationBar from "expo-navigation-bar";
+import { useTheme } from "../../../../context/ThemeContext";
+import EditWorkoutModal from "../../../../components/Modals/EditWorkoutModal";
 
 type Exercise = {
   id: string;
@@ -33,6 +35,7 @@ export default function edit() {
   const { workouts } = useUserWorkouts();
   const { id } = useLocalSearchParams();
   const [saving, setSaving] = useState(false);
+  const { isDark } = useTheme();
 
   const { user } = useAuth();
   const { db } = useFirebase();
@@ -55,11 +58,11 @@ export default function edit() {
     data: Exercise[];
     loading: boolean;
   };
-  
+
   useEffect(() => {
-      NavigationBar.setBackgroundColorAsync("#ffffff");
-      NavigationBar.setButtonStyleAsync("dark");
-    }, []);
+    NavigationBar.setBackgroundColorAsync("#ffffff");
+    NavigationBar.setButtonStyleAsync("dark");
+  }, []);
 
   const clearExercises = useCallback(() => setAddedExercises([]), []);
 
@@ -146,7 +149,7 @@ export default function edit() {
         type: "customSuccess",
         text1: "Treino atualizado com sucesso!",
         position: "top",
-        visibilityTime: 3000,
+        visibilityTime: 2000,
         autoHide: true,
         swipeable: true,
       });
@@ -155,7 +158,7 @@ export default function edit() {
         setModalVisible(false);
         setSaving(false);
         navigation.navigate("workouts/home");
-      }, 3000);
+      }, 2000);
     } catch (error) {
       Toast.show({
         type: "customError",
@@ -170,10 +173,10 @@ export default function edit() {
   }, [workoutName, addedExercises, db, user, navigation, id]);
 
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1 dark:bg-gray-900">
       <View className="flex-1 pb-8">
         <View className="px-4">
-          <Text className="text-md font-bold text-[#323232]">
+          <Text className="text-md font-bold text-[#323232] dark:text-white">
             BUSCAR EXERCÍCIOS
           </Text>
           <SearchInput value={search} onChangeText={setSearch} />
@@ -198,7 +201,7 @@ export default function edit() {
           }}
           keyboardShouldPersistTaps="handled"
           ListEmptyComponent={
-            <Text className="text-center text-md text-[#323232] font-bold mt-4">
+            <Text className="text-center text-md text-[#323232] dark:text-white font-bold mt-4">
               EXERCÍCIO NÃO ENCONTRADO.
             </Text>
           }
@@ -209,71 +212,15 @@ export default function edit() {
         onPress={() => setModalVisible(true)}
         mode="view"
       />
-      <Modal visible={modalVisible} animationType="slide" transparent onRequestClose={() => setModalVisible(false)}>
-        <SafeAreaView className="flex-1 bg-[#ECEBEB] px-4">
-          <View className="flex-row items-center justify-between pt-4">
-            <TouchableOpacity onPress={() => setModalVisible(false)}>
-              <Ionicons name="chevron-down" size={30} color="#323232" />
-            </TouchableOpacity>
-            <Text className="font-black text-[#323232]">EDITAR EXERCÍCIOS</Text>
-            <TouchableOpacity onPress={clearExercises}>
-              <Text className="font-bold text-[#E10000] text-sm">Limpar</Text>
-            </TouchableOpacity>
-          </View>
-          <View className="pt-8">
-            <Text className="font-bold text-[#323232]">
-              EDITAR NOME DO TREINO
-            </Text>
-            <TextInput
-              className="bg-white rounded-[8] py-4 mt-2 shadow font-bold px-4"
-              style={{
-                shadowColor: "#000",
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-              }}
-              value={workoutName}
-              onChangeText={setWorkoutName}
-              cursorColor="#323232"
-            ></TextInput>
-          </View>
-
-          <View className="flex-1 pt-12">
-            <Text className="font-bold text-[#323232] pb-2">
-              ORDEM DOS EXERCÍCIOS
-            </Text>
-            <FlatList
-              data={addedExercises}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item }) => (
-                <AddExerciseCard
-                  name={item.exercise.toUpperCase()}
-                  category={item.category.toUpperCase()}
-                  mode="edit"
-                  onDelete={() =>
-                    setAddedExercises((prev) =>
-                      prev.filter((ex) => ex.id !== item.id)
-                    )
-                  }
-                />
-              )}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{ paddingBottom: insets.bottom + 10 }}
-            />
-          </View>
-          <View className="bottom-0 left-0 right-0 absolute">
-            <AddExerciseBar
-              count={addedExercises.length}
-              mode="edit"
-              onPress={() => {
-                handleEditWorkout();
-              }}
-            />
-          </View>
-        </SafeAreaView>
-        <Toast config={toastConfig} />
-      </Modal>
+      <EditWorkoutModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        addedExercises={addedExercises}
+        setAddedExercises={setAddedExercises}
+        workoutName={workoutName}
+        setWorkoutName={setWorkoutName}
+        handleEditWorkout={handleEditWorkout}
+      />
     </SafeAreaView>
   );
 }

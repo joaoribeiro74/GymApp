@@ -6,6 +6,7 @@ import { Workout } from "../hooks/useUserWorkouts";
 import { useExerciseStates } from "../hooks/useExerciseStates";
 import { useSaveWorkout } from "../hooks/useSaveWorkout";
 import { useDeleteWorkout } from "../hooks/useDeleteWorkout";
+import { useTheme } from "../context/ThemeContext";
 
 type Props = {
   workout: Workout;
@@ -33,10 +34,11 @@ export default function EditExerciseCard({
     setExpanded
   );
   const { handleDeleteWorkout } = useDeleteWorkout();
+  const { isDark } = useTheme();
 
   return (
     <View
-      className="bg-white rounded-[10] flex p-2 mb-2 min-h-[80px] shadow-sm shadow-black"
+      className="bg-white dark:bg-gray-800 rounded-[10] flex p-2 mb-2 min-h-[80px] shadow-sm shadow-black"
     >
       <View className="p-2 flex-row items-center justify-between">
         <View className="flex-row items-center flex-1">
@@ -47,19 +49,19 @@ export default function EditExerciseCard({
             <Ionicons
               name={expanded ? "chevron-up" : "create"}
               size={30}
-              color="#323232"
+              color={isDark ? "#ffffff" : "#323232"}
             />
           </TouchableOpacity>
           <View className="flex-col">
-            <Text className="text-2xl font-black text-black">
+            <Text className="text-2xl font-black text-black dark:text-white">
               {workout.name}
             </Text>
 
-            <Text className="text-md font-bold text-[#323232]">
+            <Text className="text-md font-bold text-[#323232] dark:text-gray-400">
               {workout.day}
             </Text>
             {!expanded && (
-              <Text className="text-sm font-bold text-[#323232]">
+              <Text className="text-sm font-bold text-[#323232] dark:text-gray-400">
                 {workout.exercises.length} EXERCÍCIOS
               </Text>
             )}
@@ -81,18 +83,18 @@ export default function EditExerciseCard({
           if (!state) return null;
 
           return (
-            <View key={exercise.id} className="p-2 bg-white rounded mb-2">
-              <Text className="text-[#323232] text-lg font-bold pb-2">
+            <View key={exercise.id} className="p-2 rounded mb-2">
+              <Text className="text-[#323232] dark:text-white text-lg font-bold pb-2">
                 {exercise.exercise.toUpperCase()}
               </Text>
 
-              <Text className="font-black text-xs text-[#323232]">SÉRIES</Text>
+              <Text className="font-black text-xs text-[#323232] dark:text-white">SÉRIES</Text>
               <TextInput
                 value={state.series}
                 onChangeText={(text) => handleSeriesChange(exercise.id, text)}
                 keyboardType="numeric"
-                cursorColor="#323232"
-                className="bg-[#f6f6f6] rounded-[8] py-2 mb-4 shadow-sm shadow-black px-4 text-[#323232] font-black w-[20%]"
+                cursorColor={isDark ? "#ffffff" : "#323232"}
+                className="bg-[#f6f6f6] dark:bg-gray-700 dark:text-white rounded-[8] py-2 mb-4 shadow-sm shadow-black px-4 text-[#323232] font-black w-[20%]"
               />
 
               {Array.from({ length: parseInt(state.series) || 0 }).map(
@@ -102,7 +104,7 @@ export default function EditExerciseCard({
                     className="flex-row justify-between w-[100%] mb-4"
                   >
                     <View className="flex-1 mr-4">
-                      <Text className="text-xs text-[#323232] font-black">
+                      <Text className="text-xs text-[#323232] dark:text-white font-black">
                         REPETIÇÕES - SÉRIE {index + 1}
                       </Text>
                       <TextInput
@@ -111,12 +113,12 @@ export default function EditExerciseCard({
                           handleRepsChange(exercise.id, index, text)
                         }
                         keyboardType="numeric"
-                        cursorColor="#323232"
-                        className="bg-[#f6f6f6] rounded-[8] py-2 px-4 shadow-sm shadow-black text-[#323232] font-black"
+                        cursorColor={isDark ? "#ffffff" : "#323232"}
+                        className="bg-[#f6f6f6] dark:bg-gray-700 dark:text-white rounded-[8] py-2 px-4 shadow-sm shadow-black text-[#323232] font-black"
                       />
                     </View>
                     <View className="flex-1">
-                      <Text className="text-xs text-[#323232] font-black">
+                      <Text className="text-xs text-[#323232] dark:text-white font-black">
                         PESO - SÉRIE {index + 1}
                       </Text>
                       <TextInput
@@ -125,8 +127,8 @@ export default function EditExerciseCard({
                           handleWeightChange(exercise.id, index, text)
                         }
                         keyboardType="numeric"
-                        cursorColor="#323232"
-                        className="bg-[#f6f6f6] rounded-[8] py-2 px-4 shadow-sm shadow-black text-[#323232] font-black"
+                        cursorColor={isDark ? "#ffffff" : "#323232"}
+                        className="bg-[#f6f6f6] dark:bg-gray-700 dark:text-white rounded-[8] py-2 px-4 shadow-sm shadow-black text-[#323232] font-black"
                       />
                     </View>
                   </View>
@@ -137,7 +139,7 @@ export default function EditExerciseCard({
         })}
       {expanded && (
         <View className="p-2">
-          <Text className="font-black text-sm text-[#323232] mb-1">
+          <Text className="font-black text-sm text-[#323232] dark:text-white mb-1">
             ANOTAÇÕES (opcional)
           </Text>
           <TextInput
@@ -145,16 +147,16 @@ export default function EditExerciseCard({
             onChangeText={setGeneralNote}
             multiline
             maxLength={150}
-            cursorColor="#323232"
-            className="bg-[#f6f6f6] rounded-[8] py-2 mb-4 shadow-sm shadow-black px-4 text-[#323232] font-bold"
+            cursorColor={isDark ? "#ffffff" : "#323232"}
+            className="bg-[#f6f6f6] dark:bg-gray-700 dark:text-white rounded-[8] py-2 mb-4 shadow-sm shadow-black px-4 text-[#323232] font-bold"
           />
 
           <TouchableOpacity
             onPress={() => handleSave()}
-            className="bg-[#323232] rounded-[8] py-3 items-center"
+            className="bg-[#323232] dark:bg-gray-900 rounded-[8] py-3 items-center"
           >
             <Text className="text-white font-black text-md">
-              Salvar alterações
+              SALVAR TREINO
             </Text>
           </TouchableOpacity>
         </View>

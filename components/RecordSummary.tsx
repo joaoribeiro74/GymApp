@@ -81,16 +81,16 @@ export default function RecordSummary({ logs, templates }: Props) {
 
   return (
     <View>
-      <Text className="text-md text-black font-black mb-2">
+      <Text className="text-md text-black dark:text-white font-black mb-2">
         RECORDES RECENTES
       </Text>
 
       {topRecords.length === 0 ? (
-        <View className="bg-white p-4 rounded-xl shadow-sm shadow-black items-center justify-center">
-          <Text className="text-sm font-bold text-[#323232] mb-2">
+        <View className="bg- dark:bg-gray-800 p-4 rounded-xl shadow-sm shadow-black items-center justify-center">
+          <Text className="text-sm font-bold text-[#323232] dark:text-white mb-2">
             Nenhum recorde encontrado ainda.
           </Text>
-          <Text className="text-xs text-[#666] font-normal text-center mb-2">
+          <Text className="text-xs text-[#666] dark:text-gray-400 font-normal text-center mb-2">
             Registre seus treinos com peso para acompanhar seus recordes aqui!
           </Text>
         </View>
@@ -98,17 +98,17 @@ export default function RecordSummary({ logs, templates }: Props) {
         topRecords.map((rec, idx) => (
           <View
             key={idx}
-            className="bg-white p-3 rounded-xl mb-2 shadow-sm shadow-black flex-row justify-between items-center"
+            className="bg-white dark:bg-gray-800 p-3 rounded-xl mb-2 shadow-sm shadow-black flex-row justify-between items-center"
           >
             <View>
-              <Text className="font-black text-sm">
+              <Text className="font-black text-sm dark:text-white">
                 {rec.exercise.toUpperCase()}
               </Text>
-              <Text className="text-xs font-bold text-[#323232]">
+              <Text className="text-xs font-bold text-[#323232] dark:text-gray-400">
                 {rec.category.toUpperCase()}
               </Text>
             </View>
-            <Text className="font-bold text-sm text-right">
+            <Text className="font-bold text-sm text-right dark:text-white">
               {rec.maxWeight} KG
             </Text>
           </View>

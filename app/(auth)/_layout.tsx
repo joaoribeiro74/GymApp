@@ -3,16 +3,33 @@ import React from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
 import CustomDrawerContent from "../../components/CustomDrawer";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function AuthLayout() {
+  const { theme } = useTheme();
+
+  const backgroundColor = theme === "dark" ? "#1f2937" : "#ffffff";
+  const headerTextColor = theme === "dark" ? "#ffffff" : "#1f2937"; 
+  const drawerLabelColor = theme === "dark" ? "#f9fafb" : "#111827";
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Drawer
         drawerContent={(props) => <CustomDrawerContent {...props} />}
         screenOptions={{
           drawerStyle: {
+            backgroundColor: backgroundColor,
             width: 280,
           },
+          headerStyle: {
+            backgroundColor: backgroundColor,
+          },
+          headerTitleStyle: {
+            color: headerTextColor,
+            fontWeight: "bold",
+            fontSize: 18,
+          },
+          headerTintColor: headerTextColor,
           headerRight: () => (
             <Image
               source={require("../../assets/logo.png")}
@@ -52,6 +69,7 @@ export default function AuthLayout() {
           name="settings/home"
           options={{
             title: "CONFIGURAÇÕES",
+            headerShadowVisible: false,
           }}
         />
         <Drawer.Screen
@@ -73,15 +91,35 @@ export default function AuthLayout() {
           }}
         />
         <Drawer.Screen
-          name="activity/[id]/exerciseDetails"
+          name="profile/home"
+          options={{
+            title: "PERFIL",
+            headerShadowVisible: false,
+          }}
+        />
+        <Drawer.Screen
+          name="activity/[id]/workoutDetails"
           options={{
             title: "DETALHES DO TREINO",
           }}
         />
         <Drawer.Screen
-          name="profile/home"
+          name="settings/editUsername"
           options={{
-            title: "PERFIL",
+            title: "NOME DE USUÁRIO",
+          }}
+        />
+        <Drawer.Screen
+          name="settings/resetPassword"
+          options={{
+            title: "SENHA",
+          }}
+        />
+        <Drawer.Screen
+          name="settings/themeSettings"
+          options={{
+            title: "TEMA",
+            headerShadowVisible: false,
           }}
         />
       </Drawer>

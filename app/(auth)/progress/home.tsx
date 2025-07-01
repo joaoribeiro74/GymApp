@@ -46,7 +46,7 @@ export default function HomeProgress() {
   if (loading) return <Loading />;
 
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1 dark:bg-gray-900">
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className="px-4 pb-4">
           <View>

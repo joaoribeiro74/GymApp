@@ -72,19 +72,19 @@ export default function RecordsList({ logs, templates, search }: Props) {
   function renderItem({ item }: { item: RecordEntry }) {
     return (
       <View>
-        <View className="bg-white p-3 rounded-xl mb-2 shadow-sm shadow-black flex-row justify-between items-center">
+        <View className="bg-white dark:bg-gray-800 p-3 rounded-xl mb-2 shadow-sm shadow-black flex-row justify-between items-center">
           <View>
-            <Text className="font-black text-sm">
+            <Text className="font-black text-sm dark:text-white">
               {item.exercise.toUpperCase()}
             </Text>
-            <Text className="text-xs font-bold text-[#323232]">
+            <Text className="text-xs font-bold text-[#323232] dark:text-gray-200">
               {item.category.toUpperCase()}
             </Text>
-            <Text className="text-[#323232] font-light text-sm">
-              {item.lastDate.toLocaleDateString()}
+            <Text className="text-[#323232] font-light text-sm dark:text-gray-100">
+              {item.lastDate.toLocaleDateString("pt-BR")}
             </Text>
           </View>
-          <Text className="font-bold text-sm text-right">
+          <Text className="font-bold text-sm text-right dark:text-white">
             {item.maxWeight} KG
           </Text>
         </View>
@@ -100,8 +100,8 @@ export default function RecordsList({ logs, templates, search }: Props) {
       contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 20 }}
       showsVerticalScrollIndicator={false}
       ListEmptyComponent={
-        <Text className="text-center text-md text-[#323232] font-bold mt-4">
-          NENHUM RECORDE ENCONTRADO PARA ESTE EXERCÍCIO.
+        <Text className="text-center text-md text-[#323232] dark:text-white font-bold mt-4">
+          NENHUM RECORDE ENCONTRADO.
         </Text>
       }
     />

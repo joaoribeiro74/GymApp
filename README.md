@@ -81,20 +81,21 @@ Criar o arquivo firebaseConfig.ts e colocar as credenciais
   - [x] Quantidade de treinos no mês atual
   - [x] Média de treinos por semana
   - [x] Botão para ver detalhes de um dia específico
-- [ ] Tela de Perfil
-  - [ ] Foto do usuário (avatar ou real)
-  - [ ] Nome de usuário
-  - [ ] E-mail
-  - [ ] Peso atual (editável)
-  - [ ] Objetivo: perder peso, ganhar massa, etc
-  - [ ] Botão de editar perfil
-- [ ] Tela de Configurações
-  - [ ] Tema (claro/escuro)
-  - [ ] Deslogar
-  - [ ] Sobre o app / Versão
-- [ ] Mensagens de Erro ou Feedback
-  - [ ] Exibição de mensagens de erro
-  - [ ] Feedbacks: "Treino salvo com sucesso", "Senha incorreta", etc
+- [x] Tela de Perfil
+  - [x] Foto do usuário (avatar ou real)
+  - [x] Nome de usuário
+  - [x] E-mail
+  - [x] Peso atual (editável)
+  - [x] Objetivo: perder peso, ganhar massa, etc
+  - [x] Botão de editar perfil
+- [x] Tela de Configurações
+  - [x] Alterar nome de usuário
+  - [x] Redefinir senha
+  - [x] Tema (claro/escuro)
+  - [x] Versão
+- [x] Mensagens de Erro ou Feedback
+  - [x] Exibição de mensagens de erro
+  - [x] Feedbacks: "Treino salvo com sucesso", "Senha incorreta", etc
 
 ### 🌟 Funcionalidades adicionais (possíveis incrementos)
 
@@ -201,11 +202,18 @@ Esta parte do documento detalha o planejamento de desenvolvimento do aplicativo 
 **Objetivo:** Permitir ao usuário editar seu perfil e configurar preferências.
 
 ### Tarefas:
-- [ ] Tela de perfil com nome, foto, e-mail e objetivos
-- [ ] Tela de configurações com opções:
-  - Tema (claro/escuro)
-  - Notificações
-  - Logout
+- [x] Tela de Perfil
+  - [x] Foto do usuário (avatar ou real)
+  - [x] Nome de usuário
+  - [x] E-mail
+  - [x] Peso atual (editável)
+  - [x] Objetivo: perder peso, ganhar massa, etc
+  - [x] Botão de editar perfil
+- [x] Tela de Configurações
+  - [x] Alterar nome de usuário
+  - [x] Redefinir senha
+  - [x] Tema (claro/escuro)
+  - [x] Versão
 
 ---
 

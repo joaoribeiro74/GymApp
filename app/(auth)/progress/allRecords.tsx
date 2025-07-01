@@ -27,9 +27,9 @@ export default function AllRecords() {
   }, [workouts]);
 
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1 dark:bg-gray-900">
       <View className="px-4 pb-4">
-        <Text className="text-sm font-bold text-[#323232]">
+        <Text className="text-sm font-bold text-[#323232] dark:text-white">
           BUSCAR RECORDE POR EXERCÍCIO OU CATEGORIA
         </Text>
         <SearchInput value={search} onChangeText={setSearch} />
