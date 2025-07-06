@@ -7,7 +7,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eas-build-pre-install": "echo $FIREBASE_CONFIG | base64 --decode > firebase/config/firebaseConfig.ts && echo 'firebaseConfig.ts criado com sucesso'"
+    "eas-build-pre-install": "echo $FIREBASE_CONFIG | base64 --decode > firebase/config/firebaseConfig.ts"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
