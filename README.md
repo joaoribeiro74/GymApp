@@ -122,9 +122,9 @@ As telas foram prototipadas no Figma e estão disponíveis no link abaixo:
 
 ## 🗃️ Modelagem do banco
 
-O app utilizará um banco de dados **NoSQL (Firebase ou similar)** para armazenar os dados dos usuários e seus treinos.
+O app utilizará um banco de dados **NoSQL (Firebase)** para armazenar os dados dos usuários e seus treinos.
 
-🔗 [Diagrama do banco de dados](https://drive.google.com/file/d/12-y7XcVq6HcDM6fTk5Usm6bx3mtJUZnN/view?usp=sharing).
+🔗 [Diagrama do banco de dados](./docs/FIREBASE_SCHEMA.md).
 
 ---
 

@@ -39,3 +39,5 @@ yarn-error.*
 firebaseConfig.ts
 
 package-lock.json
+
+*.apk

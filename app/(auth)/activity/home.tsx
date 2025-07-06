@@ -214,7 +214,7 @@ export default function HomeActivity() {
               theme={{
                 selectedDayBackgroundColor: "#1DAA2D",
                 todayTextColor: "#1DAA2D",
-                arrowColor: isDark ? "#ffffff" : "#323232",
+                arrowColor: "#4ADE80",
                 monthTextColor: isDark ? "#ffffff" : "#000000",
                 dayTextColor: isDark ? "#E5E5E5" : "#000000",
                 textSectionTitleColor: isDark ? "#D1D5DB" : "#7B7B7B",

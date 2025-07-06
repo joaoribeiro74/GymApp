@@ -7,7 +7,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eas-build-prebuild": "mkdir -p firebase/config && echo $FIREBASE_CONFIG | base64 --decode > firebase/config/firebaseConfig.ts && echo 'firebaseConfig.ts criado com sucesso'"
+    "eas-build-pre-install": "echo $FIREBASE_CONFIG | base64 --decode > firebase/config/firebaseConfig.ts && echo 'firebaseConfig.ts criado com sucesso'"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
@@ -22,6 +22,7 @@
     "expo-navigation-bar": "~4.2.7",
     "expo-router": "~5.1.3",
     "expo-status-bar": "~2.2.3",
+    "expo-system-ui": "~5.0.10",
     "firebase": "^11.8.1",
     "nativewind": "^4.1.23",
     "react": "19.0.0",
