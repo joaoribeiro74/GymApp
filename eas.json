@@ -6,7 +6,8 @@
   "build": {
     "apk": {
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "versionCode": 1
       }
     },
     "development": {
